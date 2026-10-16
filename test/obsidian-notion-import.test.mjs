@@ -6,6 +6,13 @@ import path from 'node:path';
 import {installPrototype, prototypeName} from '../lib/obsidian-prototype.mjs';
 import {importNotionSnapshots} from '../lib/obsidian-notion-import.mjs';
 import {reviewNotionImport} from '../lib/obsidian-import-review.mjs';
+import {buildLifeGraph, safeNoteName} from '../lib/obsidian-life-graph.mjs';
+
+test('graph filenames are safe and collision-resistant',()=>{
+  const occupied=new Set();
+  assert.equal(safeNoteName('Study: Math?', '11111111',occupied),'Study Math');
+  assert.equal(safeNoteName('Study: Math?', '22222222',occupied),'Study Math · 222222');
+});
 
 const page=(id,properties,content='')=>({
   url:`https://app.notion.com/p/${id}`,title:'Imported record',page_last_edited_at:'2026-10-15T10:00:00Z',
@@ -53,4 +60,16 @@ test('Notion snapshot import preserves scores and historical risk, links records
   assert.equal(review.failures.length,0);
   assert.match(await readFile(path.join(root,'歷史資料.md'),'utf8'),/生活日誌/);
   assert.match(await readFile(path.join(root,'The Unseen.md'),'utf8'),/\[\[歷史資料/);
+  await writeFile(path.join(vault,'.obsidian','graph.json'),'{}');
+  await writeFile(path.join(vault,'verification.md'),`[[Records/Risks/${riskId}]]\n`);
+  const graph=await buildLifeGraph({vault,manifestPath,backupPath:backup});
+  assert.equal(graph.renamed,1);
+  assert.ok(graph.updatedLinks>=1);
+  const mapped=JSON.parse(await readFile(manifestPath,'utf8')).records[riskId].path;
+  assert.match(mapped,/Imported record\.md$/);
+  assert.match(await readFile(path.join(vault,'verification.md'),'utf8'),/\[\[Records\/Risks\/Imported record\]\]/);
+  assert.match(await readFile(path.join(root,...mapped.split('/')),'utf8'),/source_record_id: "22222222222222222222222222222222"/);
+  assert.equal((await importNotionSnapshots(args)).conflicted,0);
+  const after=await reviewNotionImport({vault,snapshotDir:snapshot,manifestPath});
+  assert.equal(after.relationship_links_missing,0);
 });
