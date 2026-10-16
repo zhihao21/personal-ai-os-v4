@@ -1,4 +1,17 @@
-﻿# Development state
+﻿## Latest checkpoint — 2026-10-16 visual implementation
+
+- Branch: `feature/emotional-aftereffect`, dashboard commit `e88ba36` after session-start `b492dcd`. Git log/status and remote tracking are authoritative after subsequent commits.
+- The owner's latest instruction keeps school Notion as the primary operational source and authorizes a supporting custom frontend for visual effects that native Notion cannot reasonably reproduce. Keep native Phase 1 pages in Notion. No personal account or migration work.
+- School Notion hub: added The Unseen header and subtitle, Work/Study/Life navigation cards, Today's Focus, a linked existing schedule calendar, and Task/Project/Resource links. Existing views/records were preserved. MCP readback succeeded; browser showed the new callouts/schedule, though Notion collection requests intermittently failed.
+- School Life Risk Analysis: added current, positive/negative, and historical/delayed callouts. Added one October 15 positive relationship-related medium observation in the existing Emotional Aftereffect event source, related to the existing journal. Exact event time and delayed observations remain unknown. MCP current/positive queries found one case. Closed EA-NEG-001 remains historical high risk 21/24, not an active emergency.
+- School Life Journal: added the missing `重要回憶` rich-text field without changing records. Existing mood/state/composite views remain; formula null behavior is unverified.
+- Configured an enabled local Agent Host daily automation, `Personal AI OS 22:00 journal`, scheduled for 22:00 Asia/Taipei (next run reported 2026-10-16 14:00 UTC). Its private prompt asks the full questionnaire and requires date-keyed upsert, duplicate detection, and preservation of unanswered fields/timestamps. One manual dispatch completed a dry run: verified school account/schema, queried zero journal records for today, and made no write outside the evening window. The dispatch tool also emitted a contradictory start error. Verify first actual 22:00 notification, response, and Notion upsert before claiming end-to-end reliability. This is not automatic Codex session recovery.
+- Added `/dashboard` in the existing local app: dark responsive visual dashboard with The Unseen header, sidebar, Work/Study/Life, focus, navigable seven-day timetable, Task/Project/Resource, journal scores, and separate current/historical/delayed risk indicators. `?demo=1` uses explicitly labeled synthetic data. `/api/dashboard` reads configured Notion sources through an optional official API token; neither token nor school IDs are in code. Without runtime settings it shows disconnected status, so real-data hydration is unverified. Native Notion remains the operational interface.
+- Validation: focused `node --test test/notion-dashboard.test.mjs test/server.test.mjs` passed 4/4. Browser at `http://127.0.0.1:4315/dashboard?demo=1` rendered all sections and Traditional Chinese at its available 830 px viewport. Programmatic week next/reset worked. Browser viewport emulation did not stick, and pointer automation on the week button was intercepted even though DOM hit testing identified the button. Full 3440 px/mobile visual and pointer QA remain open.
+- **Exact next action:** push the feature branch and update Draft PR #1. At the first 22:00 run, verify questionnaire delivery and, after a real response, one date-keyed Notion upsert. Finish native risk-page browser QA and test supplemental dashboard hydration only if an authorized runtime Notion API token becomes available without exposing it.
+
+---
+# Development state
 
 Updated: 2026-10-16, current session. Recovery checkpoint; Git and verified behavior take precedence over prose.
 
