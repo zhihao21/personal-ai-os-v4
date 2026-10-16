@@ -24,7 +24,10 @@ test('daily questionnaire creates once and changes only answered fields',async()
   const first=await saveJournalAnswers(vault,{date,mood:8,state:5,emotional_tags:['calm'],thoughts:'Synthetic thought'});
   assert.equal(first.created,true);
   assert.equal(first.record_count,1);
+  assert.equal(first.chart_error,null);
   const target=path.join(root,'Records','Journal',`${date}.md`);
+  assert.match(await readFile(path.join(root,'Assets','mood-trend.svg'),'utf8'),/<svg\b/);
+  assert.match(await readFile(path.join(root,'Assets','risk-summary.svg'),'utf8'),/<svg\b/);
   let note=await readFile(target,'utf8');
   assert.match(note,/mood: 8/);
   assert.match(note,/state: 5/);
@@ -81,6 +84,8 @@ test('aftereffect finding requires a real source and separates facts from hypoth
   const finding={date,source_journal_date:date,source_event_id:'EA-TEST-001',facts:'Observed later mood',hypotheses:'Possible association only',unknowns:'Causality unknown'};
   const first=await saveAftereffectFinding(vault,finding);
   assert.equal(first.created,true);
+  assert.equal(first.chart_error,null);
+  assert.equal(first.chart_counts.journal,1);
   let note=await readFile(first.path,'utf8');
   assert.match(note,/\[\[Records\/Journal\/2026-10-16\]\]/);
   assert.match(note,/\[\[Records\/Risks\/test-event\]\]/);

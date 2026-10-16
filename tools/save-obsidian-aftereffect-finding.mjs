@@ -5,4 +5,4 @@ const [vault,findingPath]=process.argv.slice(2);
 if(!vault||!findingPath)throw Error('Usage: node tools/save-obsidian-aftereffect-finding.mjs EXISTING_VAULT PRIVATE_FINDING_JSON');
 const finding=JSON.parse((await readFile(findingPath,'utf8')).replace(/^\uFEFF/,''));
 const result=await saveAftereffectFinding(vault,finding);
-console.log(JSON.stringify({id:result.id,created:result.created,updated:result.updated,sources:result.sources}));
+console.log(JSON.stringify({id:result.id,created:result.created,updated:result.updated,sources:result.sources,chart_error:result.chart_error,chart_counts:result.chart_counts}));
