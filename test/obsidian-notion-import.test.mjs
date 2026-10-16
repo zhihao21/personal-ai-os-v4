@@ -62,6 +62,9 @@ test('Notion snapshot import preserves scores and historical risk, links records
   assert.match(await readFile(path.join(root,'The Unseen.md'),'utf8'),/\[\[歷史資料/);
   await writeFile(path.join(vault,'.obsidian','graph.json'),'{}');
   await writeFile(path.join(vault,'verification.md'),`[[Records/Risks/${riskId}]]\n`);
+  const backedRisk=path.join(backup,prototypeName,'Records','Risks',`${riskId}.md`);
+  await mkdir(path.dirname(backedRisk),{recursive:true});
+  await writeFile(backedRisk,await readFile(path.join(root,'Records','Risks',`${riskId}.md`)));
   const graph=await buildLifeGraph({vault,manifestPath,backupPath:backup});
   assert.equal(graph.renamed,1);
   assert.ok(graph.updatedLinks>=1);
