@@ -1,11 +1,11 @@
 # Development state
 
-Updated: 2026-10-16 09:16 Asia/Taipei. This is a recovery checkpoint, not a source of truth over Git and verified files.
+Updated: 2026-10-16 09:19 Asia/Taipei. This is a recovery checkpoint, not a source of truth over Git and verified files.
 
 ## Repository
 
 - Branch: `feature/emotional-aftereffect`, tracking `origin/feature/emotional-aftereffect`.
-- Last verified feature commits: `ff3e595` (responsive tracking and vault snapshots), `ecc9df7` (recovery checkpoint). Check `git log -1` after this checkpoint update.
+- Last committed feature changes before this task: `ff3e595` (responsive tracking and vault snapshots), `ecc9df7` (recovery checkpoint), `d1b632d` (desktop QA checkpoint). Verify current HEAD with `git log -1`.
 - Draft PR: [#1](https://github.com/zhihao21/personal-ai-os-v4/pull/1), open and draft at `ecc9df7` when checked; recovery progress added to description.
 - Working tree before creating recovery files: clean.
 
@@ -17,12 +17,12 @@ Updated: 2026-10-16 09:16 Asia/Taipei. This is a recovery checkpoint, not a sour
 - Configurable one-way Obsidian snapshots with repeat/corruption tests; proposed Notion mappings and year-end acceptance gates documented in [../INTEGRATIONS.md](../INTEGRATIONS.md). No Notion data modified.
 - Recovery instructions and this checkpoint created, reviewed, committed, pushed, and reflected in Draft PR #1.
 - Desktop visual QA: inspected a fixed 1280px Edge screenshot with isolated synthetic data; sidebar, cards, chart, legend, and form were legible without clipping. No desktop code fix was needed.
+- Offline migration evidence checker implemented and tested with synthetic source/destination inventories; compares stable record IDs/content hashes, attachment hashes, and relation pairs without modifying input files. Usage and limits documented in [../INTEGRATIONS.md](../INTEGRATIONS.md).
 
 ## Pending, in order
 
-1. Phase 2: implement an offline migration-readiness validator against canonical synthetic exports and a private source inventory format. Keep it read-only and avoid actual Notion writes or personal data in tests. Reconcile with existing acceptance gates.
-2. Validate actual Notion database property IDs/types and source records only when the account/schema is available. Attachment and relation transfer remain manual until source details exist.
-3. Final year-end migration rehearsal, including real backup restore, requires source data and owner review. No account cutover or deletion is authorized.
+1. Validate actual Notion database property IDs/types and source records only when the account/schema is available. Attachment and relation transfer remain manual until source details exist.
+2. Final year-end migration rehearsal, including real backup restore, requires source data and owner review. No account cutover or deletion is authorized.
 
 ## Blockers and limitations
 
@@ -35,7 +35,8 @@ Updated: 2026-10-16 09:16 Asia/Taipei. This is a recovery checkpoint, not a sour
 
 - Previous commit: 8/8 `node --test` tests passed; narrow browser visual and interaction checks passed. Desktop screenshot passed at 1280px with synthetic records.
 - Recovery mechanism: `node --test` passed 8/8; `git diff --check` passed before commit.
+- Migration checker focused tests: 4/4 passed for matching evidence, mismatch detection, malformed inventories, and read-only CLI behavior. Full suite: 12/12 passed. Syntax and diff hygiene passed before commit.
 
 ## Exact next action
 
-Implement the offline, read-only migration-readiness validator against synthetic canonical exports and explicit source/destination inventories. Check ID/hash equality, attachment and relation reconciliation, and invalid/incomplete inventories; add focused tests and documentation, then update this checkpoint and commit only verified files.
+After committing and pushing this checkpoint, confirm Draft PR #1 reflects the migration checker. Next, obtain the actual Notion database schema and a private source inventory with property IDs/types, relation targets, attachment hashes, and timezone policy. Reconcile the proposed mapping read-only; do not write to Notion or attempt account cutover.

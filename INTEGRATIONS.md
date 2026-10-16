@@ -40,3 +40,19 @@ Target: all gates passed by 2026-12-31 before changing the authoritative account
 ## Remaining limitations
 
 Source Notion schema and account scope are unverified. Attachment transfer and relation reconciliation remain manual. No account migration has been performed. Eight original module placeholders remain placeholders. Risk scoring remains provisional and nonclinical; no automatic emergency determination. Authentication/shared hosting and bidirectional vault synchronization remain out of scope. Charts distinguish direction and lifecycle, but multiple same-direction events can overlap; detailed event lists remain the source for individual values.
+## Offline migration evidence check
+
+`node tools/check-migration.mjs SOURCE_INVENTORY.json DESTINATION_INVENTORY.json CANONICAL_EXPORT.json` reads three private files without changing them or contacting Notion. Keep all three outside the repository. Exit code 0 means the supplied inventories match the canonical export; 1 means a mismatch; 2 means invalid/incomplete evidence. Output contains counts and mismatch categories, not record IDs or personal content. This is one migration gate, not permission to cut over or delete an account.
+
+Both inventories use this format (illustrative hashes only):
+
+```json
+{
+  "schemaVersion": 1,
+  "records": [{"id": "synthetic-page", "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}],
+  "attachments": [{"id": "synthetic-file", "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"}],
+  "relations": [{"from": "synthetic-page", "to": "synthetic-page"}]
+}
+```
+
+`records` hashes are SHA-256 of each complete canonical event JSON object with object keys sorted recursively; unknown source metadata is included. The [eventDigest](./lib/migration.mjs) implementation defines the exact algorithm. Attachment hashes must be calculated independently from file bytes on each side. Record IDs, attachment IDs and relation endpoints must be stable and independently inventoried; do not generate both manifests from the same destination export. Use explicit empty arrays only after verifying there are genuinely no attachments or relations. The checker rejects missing arrays, duplicate IDs, malformed hashes and dangling relation endpoints. It cannot prove an inventory is complete or that an attachment hash was actually taken from bytes; the human inventory and sampling gates above remain required.
