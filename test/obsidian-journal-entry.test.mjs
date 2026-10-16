@@ -1,0 +1,34 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {mkdtemp,mkdir,readFile,writeFile} from 'node:fs/promises';
+import os from 'node:os';
+import path from 'node:path';
+import {installPrototype,prototypeName} from '../lib/obsidian-prototype.mjs';
+import {saveJournalAnswers} from '../lib/obsidian-journal-entry.mjs';
+
+test('daily questionnaire creates once and changes only answered fields',async()=>{
+  const vault=await mkdtemp(path.join(os.tmpdir(),'personal-ai-os-journal-'));
+  await mkdir(path.join(vault,'.obsidian'));
+  await writeFile(path.join(vault,'.obsidian','appearance.json'),'{}');
+  await installPrototype(vault);
+  const date='2026-10-16',root=path.join(vault,prototypeName);
+  const first=await saveJournalAnswers(vault,{date,mood:8,state:5,emotional_tags:['calm'],thoughts:'Synthetic thought'});
+  assert.equal(first.created,true);
+  assert.equal(first.record_count,1);
+  const target=path.join(root,'Records','Journal',`${date}.md`);
+  let note=await readFile(target,'utf8');
+  assert.match(note,/mood: 8/);
+  assert.match(note,/state: 5/);
+  assert.match(note,/Synthetic thought/);
+  const second=await saveJournalAnswers(vault,{date,mood:9});
+  assert.equal(second.created,false);
+  assert.equal(second.updated,true);
+  note=await readFile(target,'utf8');
+  assert.match(note,/mood: 9/);
+  assert.match(note,/state: 5/);
+  assert.match(note,/Synthetic thought/);
+  assert.equal((await saveJournalAnswers(vault,{date,mood:9})).updated,false);
+  await assert.rejects(()=>saveJournalAnswers(vault,{date,mood:11}),/mood must/);
+  await writeFile(path.join(root,'Records','Journal','duplicate.md'),`---\nrecord_type: journal\ndate: "${date}"\n---\n`);
+  await assert.rejects(()=>saveJournalAnswers(vault,{date,state:7}),/Duplicate journal date/);
+});
