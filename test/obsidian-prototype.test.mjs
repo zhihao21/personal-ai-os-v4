@@ -16,6 +16,15 @@ test('isolated Obsidian prototype preserves vault files and renders honest empty
     assert.equal(await readFile(path.join(vault,'existing.md'),'utf8'),'KEEP');
     const appearance=JSON.parse(await readFile(path.join(vault,'.obsidian','appearance.json'),'utf8'));
     assert(appearance.enabledCssSnippets.includes('personal-ai-os-v4'));
+    const daily=JSON.parse(await readFile(path.join(vault,'.obsidian','daily-notes.json'),'utf8'));
+    assert.equal(daily.folder,`${prototypeName}/Records/Journal`);
+    assert.equal(daily.template,`${prototypeName}/Templates/每日生活日誌`);
+    const homepage=await readFile(path.join(first.root,'The Unseen.md'),'utf8');
+    assert.equal((homepage.match(/<small>/g)||[]).length,6);
+    assert.ok(homepage.includes(`obsidian://daily?vault=${encodeURIComponent(path.basename(vault))}`));
+    const css=await readFile(path.join(vault,'.obsidian','snippets','personal-ai-os-v4.css'),'utf8');
+    assert.match(css,/data-property-key="original_properties_json"/);
+    assert.match(css,/@media\(max-width:700px\)/);
     const counts=await renderCharts(first.root);
     assert.equal(counts.journal,0);
     const mood=await readFile(path.join(first.root,'Assets','mood-trend.svg'),'utf8');
