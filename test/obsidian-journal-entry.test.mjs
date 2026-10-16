@@ -3,8 +3,17 @@ import assert from 'node:assert/strict';
 import {mkdtemp,mkdir,readFile,writeFile} from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
+import {spawn} from 'node:child_process';
 import {installPrototype,prototypeName} from '../lib/obsidian-prototype.mjs';
-import {saveJournalAnswers} from '../lib/obsidian-journal-entry.mjs';
+import {saveJournalAnswers,taipeiDate,validJournalDate} from '../lib/obsidian-journal-entry.mjs';
+import {saveAftereffectFinding} from '../lib/obsidian-aftereffect-finding.mjs';
+
+test('Taipei day boundary and impossible dates are handled explicitly',()=>{
+  assert.equal(taipeiDate(new Date('2026-10-15T16:30:00Z')),'2026-10-16');
+  assert.equal(validJournalDate('2026-02-30'),false);
+  assert.equal(validJournalDate('2026-02-28'),true);
+  assert.equal(validJournalDate(20261016),false);
+});
 
 test('daily questionnaire creates once and changes only answered fields',async()=>{
   const vault=await mkdtemp(path.join(os.tmpdir(),'personal-ai-os-journal-'));
@@ -29,6 +38,63 @@ test('daily questionnaire creates once and changes only answered fields',async()
   assert.match(note,/Synthetic thought/);
   assert.equal((await saveJournalAnswers(vault,{date,mood:9})).updated,false);
   await assert.rejects(()=>saveJournalAnswers(vault,{date,mood:11}),/mood must/);
+  await assert.rejects(()=>saveJournalAnswers(vault,{date:'2026-02-30',mood:5}),/Valid YYYY/);
+  await assert.rejects(()=>saveJournalAnswers(vault,{date}),/At least one/);
+  assert.equal((await readFile(target,'utf8')).includes('Synthetic thought'),true);
   await writeFile(path.join(root,'Records','Journal','duplicate.md'),`---\nrecord_type: journal\ndate: "${date}"\n---\n`);
   await assert.rejects(()=>saveJournalAnswers(vault,{date,state:7}),/Duplicate journal date/);
+});
+
+test('interactive questionnaire writes its answers to Markdown without Notion',async()=>{
+  const vault=await mkdtemp(path.join(os.tmpdir(),'personal-ai-os-questionnaire-'));
+  await mkdir(path.join(vault,'.obsidian'));
+  await writeFile(path.join(vault,'.obsidian','appearance.json'),'{}');
+  await installPrototype(vault);
+  const child=spawn(process.execPath,[path.resolve('tools/ask-obsidian-journal.mjs'),vault,'2026-10-16'],{stdio:['pipe','pipe','pipe']});
+  const values=['7','6','calm, hopeful','Synthetic event','Synthetic reflection','Synthetic memory','Synthetic plan','Synthetic followup'];
+  let prompts=0,stdout='',stderr='';
+  child.stdout.on('data',chunk=>{
+    const text=chunk.toString();stdout+=text;
+    for(const character of text)if(character==='：'&&prompts<values.length)child.stdin.write(values[prompts++]+'\n');
+  });
+  child.stderr.on('data',chunk=>{stderr+=chunk.toString();});
+  const code=await new Promise((resolve,reject)=>{
+    const timer=setTimeout(()=>{child.kill();reject(Error('Questionnaire timed out'));},10000);
+    child.on('exit',exit=>{clearTimeout(timer);resolve(exit);});
+  });
+  assert.equal(code,0,stderr);
+  assert.equal(prompts,8);
+  assert.match(stdout,/已建立/);
+  const note=await readFile(path.join(vault,prototypeName,'Records','Journal','2026-10-16.md'),'utf8');
+  for(const value of ['mood: 7','state: 6','Synthetic event','Synthetic reflection','Synthetic memory','Synthetic plan','Synthetic followup'])assert.ok(note.includes(value),value);
+});
+
+test('aftereffect finding requires a real source and separates facts from hypotheses',async()=>{
+  const vault=await mkdtemp(path.join(os.tmpdir(),'personal-ai-os-finding-'));
+  await mkdir(path.join(vault,'.obsidian'));
+  await writeFile(path.join(vault,'.obsidian','appearance.json'),'{}');
+  await installPrototype(vault);
+  const date='2026-10-16',root=path.join(vault,prototypeName);
+  await saveJournalAnswers(vault,{date,mood:6,state:7});
+  const event=path.join(root,'Records','Risks','test-event.md');
+  await writeFile(event,'---\nrecord_type: "emotional_event"\nevent_id: "EA-TEST-001"\nlifecycle: "current"\n---\n# Synthetic event\n');
+  const finding={date,source_journal_date:date,source_event_id:'EA-TEST-001',facts:'Observed later mood',hypotheses:'Possible association only',unknowns:'Causality unknown'};
+  const first=await saveAftereffectFinding(vault,finding);
+  assert.equal(first.created,true);
+  let note=await readFile(first.path,'utf8');
+  assert.match(note,/\[\[Records\/Journal\/2026-10-16\]\]/);
+  assert.match(note,/\[\[Records\/Risks\/test-event\]\]/);
+  assert.match(note,/已觀察事實/);
+  assert.match(note,/尚待驗證的假設/);
+  assert.match(note,/未知與缺少的觀察/);
+  assert.equal((await saveAftereffectFinding(vault,finding)).updated,false);
+  await writeFile(first.path,note+'\nManual note to preserve.\n');
+  const next=await saveAftereffectFinding(vault,{...finding,unknowns:'More observations required'});
+  assert.equal(next.updated,true);
+  note=await readFile(first.path,'utf8');
+  assert.match(note,/Manual note to preserve/);
+  assert.match(note,/More observations required/);
+  assert.ok((await readFile(path.join(root,'生活風險.md'),'utf8')).includes('Views/Findings.base#All'));
+  await assert.rejects(()=>saveAftereffectFinding(vault,{...finding,source_journal_date:undefined}),/Finding destination conflict/);
+  await assert.rejects(()=>saveAftereffectFinding(vault,{...finding,source_event_id:'MISSING'}),/Source event ID/);
 });
