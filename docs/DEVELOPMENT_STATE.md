@@ -5,8 +5,8 @@ Updated: 2026-10-16 09:40 Asia/Taipei. Recovery checkpoint; reconcile with Git a
 ## Repository
 
 - Branch: `feature/emotional-aftereffect`, tracking `origin/feature/emotional-aftereffect`.
-- Latest completed documentation commit: `45c951a` (Notion-first presentation and design), pushed to origin. Previous: `b4776a1` (separate daily-journal preservation). Recent commits: `078791f` (recovery reconciliation), `5fc0be3` (migration evidence checker), `d1b632d` (desktop QA), `ecc9df7` (recovery mechanism).
-- Draft PR: [#1](https://github.com/zhihao21/personal-ai-os-v4/pull/1), open and still draft. Title and description were updated for the Notion-first priority; remote head verified at `45c951a`.
+- Verified commits include 45c951a (Notion-first presentation and design), 5d78fef (checkpoint/PR handoff), b4776a1 (daily-journal preservation), 078791f (recovery reconciliation), and 5fc0be3 (migration evidence checker). This checkpoint is updated in its own commit; inspect git log -1 for its final SHA.
+- Draft PR: [#1](https://github.com/zhihao21/personal-ai-os-v4/pull/1), open and still draft. Title and description were updated for the Notion-first priority; the remote head matched 5d78fef before this final checkpoint update.
 - Current unrelated/partial work: modified `lib/journal.mjs`, `server.mjs`, `test/journal.test.mjs`, `test/server.test.mjs`, `web/app.mjs`, `web/index.html`, `web/style.css`; untracked `web/journal-app.mjs` and `web/journal.html`. This is the earlier standalone daily-journal UI/API work. **Preserve it without resetting, cleaning, or expanding it.** It is not a delivered Notion dashboard. The Notion-first documentation commit staged only `AGENTS.md` and `docs/` files; the local web changes remain unstaged and preserved.
 
 ## Corrected priority and verified state
@@ -36,7 +36,7 @@ Updated: 2026-10-16 09:40 Asia/Taipei. Recovery checkpoint; reconcile with Git a
 
 ## Validation and limitations
 
-- This turn: Git branch/tracking and dirty paths inspected; school Notion tab redirected to login. Documentation diff hygiene passed, `45c951a` was pushed, branch ahead/behind was 0/0 after push, and Draft PR #1 remained open/draft with its Notion-first description. Official Notion documentation checked for chart limits, dashboard-plan restriction, linked data sources, views, relations, and backup/export limitations. No school Notion write or visual QA was possible.
+- This turn: Git branch/tracking and dirty paths inspected; school Notion tab redirected to login. Documentation diff hygiene passed, `45c951a` was pushed, branch ahead/behind was 0/0 after the 5d78fef push, and Draft PR #1 remained open/draft with its Notion-first description. Official Notion documentation checked for chart limits, dashboard-plan restriction, linked data sources, views, relations, and backup/export limitations. No school Notion write or visual QA was possible.
 - Prior verified: 15/15 Node suite on committed journal code; 16/16 Node suite and synthetic local journal browser QA on paused uncommitted work. Re-run relevant tests before committing that work in any later task. The local browser result does not satisfy Notion acceptance.
 - No automatic session restart is configured or tested. Recovery is manual unless a scheduler is explicitly configured and tested.
 - No paid API, personal records, credentials, private mapping, or financial records may enter Git. No destructive recovery, bidirectional vault sync, main-branch merge, or account cutover.
