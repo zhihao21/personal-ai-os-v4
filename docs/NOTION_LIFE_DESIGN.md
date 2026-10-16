@@ -18,7 +18,7 @@ The Notion connector authenticated the intended school account. The owner subseq
 
 ## Original reuse-first design and current disposition
 
-The table below is the original design record, not an assertion that every item remains pending. The risk sources and views, hub Phase 1 navigation/current-risk and journal-follow-up linked views, and journal composite chart view are now configured. The composite chart rendered three observed points matching the available mood/state arithmetic means; formula code and missing-value handling remain unverified. The finance page already has an honest missing-data statement and zero verified transactions; no duplicate finance chart or empty-state sentence was added. See the checkpoint for exact delivered and pending work.
+The table below is the original design record, not an assertion that every item remains pending. The risk sources and views, hub Phase 1 navigation/current-risk and journal-follow-up linked views, and journal composite chart view are now configured. The composite chart rendered three observed points matching the available mood/state arithmetic means; formula code and missing-value handling remain unverified. The Goals and Plans page now has a zero-record callout. The finance page already has an honest missing-data statement and zero verified transactions; no duplicate finance chart or empty-state sentence was added. See the checkpoint for exact delivered and pending work.
 
 | Existing target | Proposed change | Preserve / gate |
 | --- | --- | --- |
