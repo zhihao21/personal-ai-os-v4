@@ -1,11 +1,11 @@
 ﻿# Development state
 
-Updated: 2026-10-16 09:48 Asia/Taipei. Recovery checkpoint; Git and verified behavior take precedence over prose.
+Updated: 2026-10-16 09:51 Asia/Taipei. Recovery checkpoint; Git and verified behavior take precedence over prose.
 
 ## Repository and preserved work
 
-- Branch: `feature/emotional-aftereffect`, tracking `origin/feature/emotional-aftereffect`. Before this update, HEAD and remote matched at `3cee128`; inspect `git log -1` for the commit containing this checkpoint.
-- Draft PR: [#1](https://github.com/zhihao21/personal-ai-os-v4/pull/1), open, draft, unmerged. Its Notion-first title/description were updated; verify head after each push.
+- Branch: feature/emotional-aftereffect, tracking origin/feature/emotional-aftereffect. Verified audit commit 6bee0eb was pushed with 0/0 ahead/behind; this checkpoint is updated in its own follow-up commit, so inspect git log -1 for its final SHA.
+- Draft PR: [#1](https://github.com/zhihao21/personal-ai-os-v4/pull/1), titled Build Notion-first life intelligence foundation, open/draft/unmerged. Its description was updated with verified school-workspace findings; head matched 6bee0eb before this checkpoint follow-up.
 - Existing standalone journal UI/API work remains modified in `lib/journal.mjs`, `server.mjs`, `test/journal.test.mjs`, `test/server.test.mjs`, `web/app.mjs`, `web/index.html`, `web/style.css`; untracked `web/journal-app.mjs` and `web/journal.html`. Preserve these partial changes. They passed 16/16 synthetic Node tests and local desktop/narrow browser checks before the Notion-first correction, but are paused and are **not** a delivered Notion interface. Stage only documentation for this audit commit.
 
 ## Current mission and scope
