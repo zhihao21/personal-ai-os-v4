@@ -15,8 +15,6 @@
   color: #edf0f5;
 }
 .the-unseen-module .inline-title {display:none}
-.the-unseen-module .markdown-preview-section,
-.the-unseen-module .cm-contentContainer {max-width:1080px;margin:auto}
 .the-unseen-module .markdown-preview-section {padding:20px 28px 64px}
 .the-unseen-module h1 {font-family:Georgia,'Noto Serif TC',serif;font-size:clamp(1.9rem,3vw,2.6rem);line-height:1.18;margin:.25rem 0 .55rem;letter-spacing:-.015em}
 .the-unseen-module h1 + p {font-size:.98rem;color:#bdc9d8;margin:0 0 .9rem}
