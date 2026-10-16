@@ -27,3 +27,9 @@ Year-end migration: export raw Notion data including attachments; export canonic
 Core tests cover closed 21/24, active 24/24, both emotion directions, delayed timing, future observations, validation, metadata retention and conflict handling. Synthetic demo data is opt-in and is never persisted. Real personal records are not seeded.
 
 No original module specification, vault location, Notion schema, or year-end acceptance criteria was available in the referenced conversation. The interface labels and provisional scoring require user review. This first iteration does not include authentication for shared hosting, automatic inference, clinical triage, real-time Notion sync, or automated migration of attachments.
+
+## QA follow-up (2026-10-16)
+
+Real integrated-browser screenshots were inspected at 370px and approximately 357px. A 1280px DOM snapshot showed the desktop sidebar and layout, but screenshot capture reverted to the host narrow viewport; full desktop visual QA remains pending. The mobile chart previously scaled 800-unit SVG labels down to unreadable text; it now uses panel width and redraws on resize. Stat spacing, flex sizing, focus outlines and the keyboard-accessible file picker were improved. Demo mode disables all write controls; a failed return-to-local request retains demo protection.
+
+Browser interactions verified: opt-in synthetic positive 8 / negative 9 peaks; historical 21/24 separate from current 1/24; creating a synthetic active 24/24 event; closing it; adding a mood -3 followup 24 hours after its peak without reopening it; reload persistence. No horizontal page overflow at tested widths. QA data and screenshots were kept outside the repository. Eight automated tests pass, including snapshot roundtrip and corruption detection. Notion preparation and measurable year-end gates are in [INTEGRATIONS.md](INTEGRATIONS.md).
