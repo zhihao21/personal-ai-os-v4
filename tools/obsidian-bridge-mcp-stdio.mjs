@@ -5,6 +5,8 @@ import {bridgeTools,callBridgeTool} from '../lib/obsidian-bridge-tools.mjs';
 // Run as the private stdio endpoint of an authenticated Secure MCP Tunnel.
 // No socket is opened; the tunnel controls which ChatGPT workspace can invoke it.
 const bridge=await createObsidianBridge(process.env.OBSIDIAN_VAULT);
+const exposedTools=bridgeTools.filter(tool=>tool.name!=='save_aftereffect_finding');
+const exposedNames=new Set(exposedTools.map(tool=>tool.name));
 const send=value=>process.stdout.write(JSON.stringify(value)+'\n');
 const error=(id,code,message)=>({jsonrpc:'2.0',id,error:{code,message}});
 const lines=readline.createInterface({input:process.stdin,crlfDelay:Infinity});
@@ -19,9 +21,10 @@ for await(const line of lines){
     if(request.method==='initialize'){
       send({jsonrpc:'2.0',id:request.id,result:{protocolVersion:'2025-06-18',capabilities:{tools:{listChanged:false}},serverInfo:{name:'personal-ai-os-obsidian',version:'0.1.0'},instructions:'Obsidian is canonical. Save only user-provided answers. Generate one UUID per intended write and reuse it on retry. Never infer risk findings from mood scores.'}});
     }else if(request.method==='ping')send({jsonrpc:'2.0',id:request.id,result:{}});
-    else if(request.method==='tools/list')send({jsonrpc:'2.0',id:request.id,result:{tools:bridgeTools}});
+    else if(request.method==='tools/list')send({jsonrpc:'2.0',id:request.id,result:{tools:exposedTools}});
     else if(request.method==='tools/call'){
       try{
+        if(!exposedNames.has(request.params?.name))throw Error('Unknown bridge tool');
         const result=await callBridgeTool(bridge,request.params?.name,request.params?.arguments);
         send({jsonrpc:'2.0',id:request.id,result:{content:[{type:'text',text:JSON.stringify(result)}],structuredContent:result,isError:false}});
       }catch(cause){

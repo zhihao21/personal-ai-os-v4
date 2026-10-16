@@ -100,6 +100,9 @@ test('stdio MCP exposes scoped tools and persists a synthetic journal',async()=>
     assert.equal(init.result.serverInfo.name,'personal-ai-os-obsidian');
     const tools=await call('tools/list');
     assert.ok(tools.result.tools.some(item=>item.name==='upsert_daily_journal'));
+    assert.deepEqual(tools.result.tools.map(item=>item.name).sort(),['add_life_event','get_daily_journal','list_recent_journals','upsert_daily_journal','verify_daily_journal'].sort());
+    const denied=await call('tools/call',{name:'save_aftereffect_finding',arguments:{date:'2042-02-03',facts:'Synthetic'}});
+    assert.equal(denied.result.isError,true);
     const saved=await call('tools/call',{name:'upsert_daily_journal',arguments:{date:'2042-02-03',submission_id:randomUUID(),mood:8,thoughts:'Synthetic MCP reflection'}});
     assert.equal(saved.result.isError,false);
     assert.equal(saved.result.structuredContent.fields.thoughts,'Synthetic MCP reflection');
