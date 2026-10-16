@@ -1,12 +1,12 @@
 # Development state
 
-Updated: 2026-10-16 09:19 Asia/Taipei. This is a recovery checkpoint, not a source of truth over Git and verified files.
+Updated: 2026-10-16 09:20 Asia/Taipei. This is a recovery checkpoint, not a source of truth over Git and verified files.
 
 ## Repository
 
 - Branch: `feature/emotional-aftereffect`, tracking `origin/feature/emotional-aftereffect`.
-- Last committed feature changes before this task: `ff3e595` (responsive tracking and vault snapshots), `ecc9df7` (recovery checkpoint), `d1b632d` (desktop QA checkpoint). Verify current HEAD with `git log -1`.
-- Draft PR: [#1](https://github.com/zhihao21/personal-ai-os-v4/pull/1), open and draft at `ecc9df7` when checked; recovery progress added to description.
+- Recent verified commits: `5fc0be3` (migration evidence checker), `078791f` (life-first recovery reconciliation). Verify current HEAD with `git log -1` after the journal commit.
+- Draft PR: [#1](https://github.com/zhihao21/personal-ai-os-v4/pull/1), open and draft. Recovery and migration-checker progress added to description; check current head SHA after push.
 - Working tree before creating recovery files: clean.
 
 ## Completed and verified
@@ -18,10 +18,11 @@ Updated: 2026-10-16 09:19 Asia/Taipei. This is a recovery checkpoint, not a sour
 - Recovery instructions and this checkpoint created, reviewed, committed, pushed, and reflected in Draft PR #1.
 - Desktop visual QA: inspected a fixed 1280px Edge screenshot with isolated synthetic data; sidebar, cards, chart, legend, and form were legible without clipping. No desktop code fix was needed.
 - Offline migration evidence checker implemented and tested with synthetic source/destination inventories; compares stable record IDs/content hashes, attachment hashes, and relation pairs without modifying input files. Usage and limits documented in [../INTEGRATIONS.md](../INTEGRATIONS.md).
+- Separate daily-journal preservation format implemented in [DAILY_JOURNAL.md](DAILY_JOURNAL.md) and `lib/journal.mjs`. Synthetic tests verify date-only precision, complete source page/metadata JSON roundtrip, invalid date rejection, and conflict-safe merge. No real journal data imported.
 
 ## Pending, in order
 
-1. Life first: design a separate lossless daily-journal format with synthetic validation, then confirm full Notion property IDs and numeric scale definitions before a private import preview. Do not coerce journals into emotional peaks. Academic work waits for uploaded material.
+1. Life first: confirm full Notion property IDs, complete property values, numeric scale definitions and timezone policy before a private daily-journal import preview. Do not coerce journals into emotional peaks. Academic work waits for uploaded material.
 2. Final year-end migration rehearsal, including real backup restore, requires source data and owner review. No account cutover or deletion is authorized.
 
 ## Blockers and limitations
@@ -35,11 +36,12 @@ Updated: 2026-10-16 09:19 Asia/Taipei. This is a recovery checkpoint, not a sour
 
 - Previous commit: 8/8 `node --test` tests passed; narrow browser visual and interaction checks passed. Desktop screenshot passed at 1280px with synthetic records.
 - Recovery mechanism: `node --test` passed 8/8; `git diff --check` passed before commit.
-- Migration checker focused tests: 4/4 passed for matching evidence, mismatch detection, malformed inventories, and read-only CLI behavior. Full suite: 12/12 passed. Syntax and diff hygiene passed before commit.
+- Migration checker focused tests: 4/4 passed for matching evidence, mismatch detection, malformed inventories, and read-only CLI behavior.
+- Daily-journal focused tests: 3/3 passed. Full Node suite: 15/15 passed; journal syntax check passed.
 
 ## Exact next action
 
-Design a separate daily-journal preservation format and synthetic roundtrip tests, using the private life-schema notes outside the repository. Obtain full property IDs and confirmed mood/state scale definitions before implementing a private import preview. Keep academic work deferred and Notion unchanged.
+Obtain complete Notion life-journal property IDs and values, confirmed mood/state numeric scale definitions, and timezone policy through read-only access. Reconcile the private mapping and then design a private, non-writing import preview. Do not access or change academic records, infer Emotional Aftereffect peaks, or cut over accounts.
 
 ## Fresh-session recovery check (2026-10-16)
 
