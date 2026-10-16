@@ -5,7 +5,7 @@ Updated: 2026-10-16, current session. Recovery checkpoint; Git and verified beha
 ## Repository and preserved work
 
 - Branch: feature/emotional-aftereffect, tracking origin/feature/emotional-aftereffect. A fresh clone at a153abb was required because the VS Code working folder was an environment-only folder, not this repository. The clone was clean at recovery. Inspect git log -1 and status for the final SHA and ahead/behind state after this update.
-- Draft PR: [#1](https://github.com/zhihao21/personal-ai-os-v4/pull/1), titled Build Notion-first life intelligence foundation, open/draft/unmerged. Its description was updated after verified risk-engine commit 97f49c3; documentation commit 92002ce was also pushed and PR head verified at 92002ce. The branch was 0 ahead/0 behind origin. This checkpoint is a follow-up commit; inspect git log -1 for its SHA.
+- Draft PR: [#1](https://github.com/zhihao21/personal-ai-os-v4/pull/1), titled Build Notion-first life intelligence foundation, open/draft/unmerged. Its description and head were verified after focused delayed-observation commit f52964a was pushed. The branch was 0 ahead/0 behind origin. This checkpoint is a follow-up commit; inspect git log -1 for its SHA.
 - The previous checkpoint listed partial standalone journal UI/API changes in another checkout. They are **not present in this fresh clone** and were not discarded or recreated here. Preserve them if that original checkout is found. Standalone UI expansion remains paused and is **not** a delivered Notion interface.
 
 ## Current mission and scope
