@@ -33,9 +33,9 @@ home.backgroundLayout = 'full';
 home.cards = [
   card('domains', 'links', 'Understand Yourself. Design Your Future. · 工作／學習／生活', 0, 0, 12, 2, {
     links: [
-      link('work', '工作', 'Records/Structure/工作.md', 'briefcase-business'),
+      link('work', '工作', '任務與行程.md', 'briefcase-business'),
       link('study', '學習', '學習脈絡.md', 'graduation-cap'),
-      link('life', '生活', 'Records/Structure/生活.md', 'heart'),
+      link('life', '生活', '生活管理.md', 'heart'),
     ], tileSizing: 'scale',
   }),
   card('daily', 'daily', '今天 · 生活日誌', 0, 2, 4, 4),
@@ -61,15 +61,15 @@ home.cards = [
   embed('mood', '心情與每日狀態趨勢', 0, 12, 8, 4, 'Assets/mood-trend.svg'),
   card('modules', 'links', '九個模組 · 導覽', 8, 12, 4, 4, {
     links: [
-      link('overview', '每日總覽', 'The Unseen.md', 'layout-dashboard'),
+      link('overview', '每日總覽', '每日總覽.md', 'layout-dashboard'),
       link('life-journal', '生活日誌', '生活日誌.md', 'book-heart'),
       link('life-risk', '生活風險', '生活風險.md', 'shield-alert'),
       link('academic', '學習中心', '學習脈絡.md', 'graduation-cap'),
       link('project', '專案管理', '專案脈絡.md', 'folder-kanban'),
       link('analytics', 'AI 分析', '視覺分析.md', 'chart-no-axes-combined'),
-      link('finance', '財務', 'Records/Structure/財務.md', 'wallet'),
-      link('health', '健康健身', 'Records/Structure/健康健身.md', 'activity'),
-      { id: 'goals', label: '目標與規劃', target: 'Private AI assistant/Personal AI OS Architecture.canvas', icon: 'target', type: 'note' },
+      link('finance', '財務', '財務中心.md', 'wallet'),
+      link('health', '健康健身', '健康與健身.md', 'activity'),
+      link('goals', '目標與規劃', '目標與規劃.md', 'target'),
     ], tileSizing: 'scale',
   }),
   embed('progress', '任務進度 · 真實紀錄', 0, 16, 6, 3, 'Assets/activity.svg'),
