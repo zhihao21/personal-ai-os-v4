@@ -1,46 +1,42 @@
-# Development state
+﻿# Development state
 
-Updated: 2026-10-16 09:40 Asia/Taipei. Recovery checkpoint; reconcile with Git and live behavior before acting.
+Updated: 2026-10-16 09:48 Asia/Taipei. Recovery checkpoint; Git and verified behavior take precedence over prose.
 
-## Repository
+## Repository and preserved work
 
-- Branch: `feature/emotional-aftereffect`, tracking `origin/feature/emotional-aftereffect`.
-- Verified commits include 45c951a (Notion-first presentation and design), 5d78fef (checkpoint/PR handoff), b4776a1 (daily-journal preservation), 078791f (recovery reconciliation), and 5fc0be3 (migration evidence checker). This checkpoint is updated in its own commit; inspect git log -1 for its final SHA.
-- Draft PR: [#1](https://github.com/zhihao21/personal-ai-os-v4/pull/1), open and still draft. Title and description were updated for the Notion-first priority; the remote head matched 5d78fef before this final checkpoint update.
-- Current unrelated/partial work: modified `lib/journal.mjs`, `server.mjs`, `test/journal.test.mjs`, `test/server.test.mjs`, `web/app.mjs`, `web/index.html`, `web/style.css`; untracked `web/journal-app.mjs` and `web/journal.html`. This is the earlier standalone daily-journal UI/API work. **Preserve it without resetting, cleaning, or expanding it.** It is not a delivered Notion dashboard. The Notion-first documentation commit staged only `AGENTS.md` and `docs/` files; the local web changes remain unstaged and preserved.
+- Branch: `feature/emotional-aftereffect`, tracking `origin/feature/emotional-aftereffect`. Before this update, HEAD and remote matched at `3cee128`; inspect `git log -1` for the commit containing this checkpoint.
+- Draft PR: [#1](https://github.com/zhihao21/personal-ai-os-v4/pull/1), open, draft, unmerged. Its Notion-first title/description were updated; verify head after each push.
+- Existing standalone journal UI/API work remains modified in `lib/journal.mjs`, `server.mjs`, `test/journal.test.mjs`, `test/server.test.mjs`, `web/app.mjs`, `web/index.html`, `web/style.css`; untracked `web/journal-app.mjs` and `web/journal.html`. Preserve these partial changes. They passed 16/16 synthetic Node tests and local desktop/narrow browser checks before the Notion-first correction, but are paused and are **not** a delivered Notion interface. Stage only documentation for this audit commit.
 
-## Corrected priority and verified state
+## Current mission and scope
 
-- The **school Notion Personal AI OS workspace** is the required user-facing surface for every requested dashboard and visual effect. The local web app remains secondary and its expansion is paused. See [Notion life design](NOTION_LIFE_DESIGN.md). This supersedes earlier checkpoint wording that prioritized a standalone journal dashboard or treated Notion merely as an import source.
-- Academic functionality waits for uploaded material. Goodnotes ??Google Drive ??Obsidian is deferred. Eight module positions remain available without implementing all modules.
-- A local Emotional Aftereffect module has synthetic browser evidence for positive/negative peaks, delayed observations, historical/current separation, and closed 21/24 regression; scoring is provisional and nonclinical. None of this proves a Notion presentation.
-- Separate daily-journal preservation code is committed. Earlier synthetic tests passed 15/15. The uncommitted local journal UI/API work passed 16/16 Node tests and synthetic browser checks at narrow/desktop widths before the priority correction; it is paused, not claimed as a Notion implementation.
-- Configurable one-way Obsidian snapshot export and offline migration evidence checker remain available. Neither establishes complete Notion account portability.
-- No school Notion record, property, view, or page was changed.
+- The university Notion workspace is the required user-facing presentation surface for every requested dashboard and visual effect. Supporting code may analyze/integrate data, but the delivered experience must be inside Notion. Preserve existing architecture/features and reuse working Notion structures.
+- Phase 1: Daily Dashboard, Life Journal, and independent cross-domain Life Risk Analysis including modular Emotional Aftereffect. Reserve architectural interfaces for all **nine** roadmap modules. Academic implementation waits for uploaded material; Goodnotes -> Google Drive -> Obsidian is deferred. Finance, health, goals, project, and AI modules follow approved phases, although existing life-facing task/plan/finance views are reused now.
+- Current Notion instruction is read-only: inspect and prepare exact changes, then obtain write authorization. No school Notion page, record, database, property, view, or template was changed.
+- Keep scoring provisional and nonclinical. Closed EA-NEG-001 at 21/24 is historical high risk, not an ongoing emergency. Distinguish facts, hypotheses, and current indicators.
 
-## School Notion audit
+## Completed and verified
 
-- The user supplied a school journal data-source identifier privately. It is a lead, **not** a verified page or schema; keep the identifier outside Git.
-- The shared school Notion link first showed an inaccessible-page message; navigating the same tab to Notion home redirected to /login. This browser session is not authenticated to inspect the school workspace. The Notion connector was also unavailable in the previous turn. Do not conclude the database is absent.
-- Earlier read-only journal notes concerned a different workspace and cannot establish the school control center, schema, permissions, plan, chart count, 22:00 automation, Calendar/Gmail, finance, or task/plan state. Do not reuse the older personal-workspace journal as the school source.
-- Actual school control-center layout, databases, properties, relations, views, charts, templates, permissions, and integration behavior remain unverified. No Notion presentation or interaction can be claimed complete.
-- Current Notion help confirms linked views, filters, chart views, relations and rollups. Free plan has one chart; unlimited native charts require a paid plan. Native dashboard views are Business/Enterprise. The school plan is unknown. The three requested trends may require an embedded free component within Notion if the plan limit applies; that decision requires live inspection and permission checks.
+- Local Emotional Aftereffect module has validated persistence, backups, conflict-safe edits/imports, positive/negative peaks, delayed observations, and separate historical/current indicators. Synthetic browser QA and the closed 21/24 regression passed earlier. This is supporting code only, not proof of Notion presentation.
+- Separate lossless daily-journal preservation code is committed. Earlier committed Node suite passed 15/15. Journal mood/state 1-10 and arithmetic-mean composite must remain distinct from Emotional Aftereffect observations.
+- Configurable one-way Obsidian snapshots and an offline migration evidence checker were implemented/tested previously. Neither proves complete Notion migration.
+- Recovery workflow and Notion-first rule are in [../AGENTS.md](../AGENTS.md). The audited reuse-first proposal is in [NOTION_LIFE_DESIGN.md](NOTION_LIFE_DESIGN.md). A precise private ID/view change sheet is stored outside Git under `../local-private/`; do not commit it.
+- Read-only connector self-check authenticated the intended school Notion account. The existing hub already has two-column navigation, today's schedule/tasks, tomorrow's preview, today's mood/state view, and a weekly task board. The separate Daily Control Center has priority and unscheduled task views.
+- Existing Life Journal source has three records and two distinct native daily mood/state charts. Querying each saved chart view returned three rows. A composite formula property exists, but its code/result and missing-value behavior were not exposed; no separate composite chart was found.
+- Existing Task source has eight records and weekly/priority/unscheduled/completion views. Goals and Plans has an existing unified calendar, goal-progress view, and task/journal relations; Goal Tracking currently has zero records.
+- Finance Center already has actual-data/currency-filtered charts; the transaction source and its monthly actual-TWD chart returned zero rows. Do not infer spending is zero or fabricate transactions. Life Risk Analysis currently exposes narrative text, not an Emotional Aftereffect event/observation view in the fetched page. Search found references, not a separate event source; do a final duplicate search before proposing creation.
+- Notion connector reports fetch/query and some write tools available, but this does not establish page-level write permission or user authorization. Existing chart configurations prove native charts are in use; plan and entitlement for an additional chart remain unknown.
 
 ## Pending, in order
 
-1. Obtain read access to the **school** Notion workspace. Inspect its existing Personal AI OS control center, life databases and exact properties/relations, views/charts/templates, plan, permissions, sample formula behavior, and working integrations. Record only non-sensitive audit conclusions publicly; private identifiers and records stay outside Git.
-2. Reconcile live structures with [Notion life design](NOTION_LIFE_DESIGN.md). Produce the exact reuse-first change list, with target IDs privately, including control-center layout/navigation, three separate journal trends, Emotional Aftereffect views, tasks/followups/plans, and finance chart or honest empty state. Confirm native capabilities before selecting an in-Notion embed. Do not create duplicates.
-3. Present proposed Notion writes for authorization. Current instruction is read-only. Once authorized, apply and verify actual desktop/narrow Notion rendering, Traditional Chinese, chart hover/drilldown, navigation, filters, record opening, permissions, and historical/current separation. Use disposable synthetic test data only where approved.
-4. Independently verify the 22:00 questionnaire workflow and Calendar/Gmail/finance integrations read-only. Preserve original 1??0 mood/state scales, mean composite only when both exist, missing values, and journal/Emotional Aftereffect separation.
-5. Rehearse full year-end migration only with authorized source/destination access and backups: complete structure, experimental data, IDs, metadata, timestamps, relations, attachments, duplicate/conflict policy, and restore verification. Do not treat event JSON export as sufficient.
+1. Verify the existing journal composite formula and actual values, including null handling, in authenticated Notion UI or another read-only source. Confirm the school plan/chart entitlement, database templates, and page-level permissions. The shared browser tab still redirects to Notion login, so rendered layout and interactions have **not** been checked.
+2. Finalize the private exact write list after a duplicate check: reuse hub/journal/tasks/goals/finance; add the missing composite trend; provide modular positive/negative peak, delayed observation, current and historical views inside the existing Life Risk Analysis page; add honest finance and goal empty states. Preserve all existing records, views and relations.
+3. Present the precise proposed writes for authorization. Once authorized, apply in small reversible steps and verify real Notion desktop/narrow rendering, Traditional Chinese, chart hover/drilldown, navigation, filters, record opening, elapsed time, and current/historical separation. Do not claim delivery before that.
+4. Independently verify the 22:00 questionnaire-to-journal flow and Calendar/Gmail integrations. Prior page status text is not runtime evidence. Preserve source dates, original 1-10 scales, missing values, and journal/Emotional Aftereffect separation.
+5. Maintain full year-end portability: page/database/view/template structure, experimental-period records, stable IDs, timestamps, original metadata, relations, attachments, duplicate/conflict handling, backups, ID remapping and restore verification. Do not migrate accounts now.
 
-## Validation and limitations
+## Validation, blockers, and exact next action
 
-- This turn: Git branch/tracking and dirty paths inspected; school Notion tab redirected to login. Documentation diff hygiene passed, `45c951a` was pushed, branch ahead/behind was 0/0 after the 5d78fef push, and Draft PR #1 remained open/draft with its Notion-first description. Official Notion documentation checked for chart limits, dashboard-plan restriction, linked data sources, views, relations, and backup/export limitations. No school Notion write or visual QA was possible.
-- Prior verified: 15/15 Node suite on committed journal code; 16/16 Node suite and synthetic local journal browser QA on paused uncommitted work. Re-run relevant tests before committing that work in any later task. The local browser result does not satisfy Notion acceptance.
-- No automatic session restart is configured or tested. Recovery is manual unless a scheduler is explicitly configured and tested.
-- No paid API, personal records, credentials, private mapping, or financial records may enter Git. No destructive recovery, bidirectional vault sync, main-branch merge, or account cutover.
-
-## Exact next action
-
-After the school account is authenticated or its control-center page is shared for read access, inspect that page and follow its existing life database links. Record exact current structures and permission/plan facts privately, then update the reuse-first proposed Notion write list before requesting write authorization. Until access arrives, preserve the paused web work and do not claim the Notion dashboard is implemented.
+- This turn's read-only Notion audit verified school account identity; fetched hub, control center, journal source/views, tasks, goals/plans, finance source/views, schedule, risk page, system page; queried row counts and saved views. No Notion write occurred. Full Node suite passed 16/16 on the preserved local code. The shared Notion browser session is unauthenticated; direct navigation currently renders only a loading skeleton. The connector does not expose formula code/results or templates in fetched entities, so these are unverified.
+- Prior local tests and browser results apply only to supporting web code. Notion visual QA and integration runtime checks remain open. No paid API, personal record, credential, private mapping, or financial record is committed. No automatic restart is configured/tested. No main merge or account cutover.
+- **Exact next action:** obtain an authenticated school Notion browser session (or equivalent rendered read-only access), inspect the existing journal composite formula and hub/journal/risk pages visually, then finish the private exact change list and request authorization before any Notion write. If browser access remains unavailable, continue only connector-backed read-only checks and report the visual QA blocker.
