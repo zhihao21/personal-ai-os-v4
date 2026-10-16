@@ -1,13 +1,13 @@
 # Development state
 
-Updated: 2026-10-16 09:36 Asia/Taipei. Recovery checkpoint; reconcile with Git and live behavior before acting.
+Updated: 2026-10-16 09:40 Asia/Taipei. Recovery checkpoint; reconcile with Git and live behavior before acting.
 
 ## Repository
 
 - Branch: `feature/emotional-aftereffect`, tracking `origin/feature/emotional-aftereffect`.
-- Last verified HEAD before this documentation change: `b4776a1` (separate daily-journal preservation). Recent commits: `078791f` (recovery reconciliation), `5fc0be3` (migration evidence checker), `d1b632d` (desktop QA), `ecc9df7` (recovery mechanism).
-- Draft PR: [#1](https://github.com/zhihao21/personal-ai-os-v4/pull/1). Keep draft; confirm remote state after push.
-- Current unrelated/partial work: modified `lib/journal.mjs`, `server.mjs`, `test/journal.test.mjs`, `test/server.test.mjs`, `web/app.mjs`, `web/index.html`, `web/style.css`; untracked `web/journal-app.mjs` and `web/journal.html`. This is the earlier standalone daily-journal UI/API work. **Preserve it without resetting, cleaning, or expanding it.** It is not a delivered Notion dashboard. This checkpoint/design commit stages only `AGENTS.md` and `docs/` files.
+- Latest completed documentation commit: `45c951a` (Notion-first presentation and design), pushed to origin. Previous: `b4776a1` (separate daily-journal preservation). Recent commits: `078791f` (recovery reconciliation), `5fc0be3` (migration evidence checker), `d1b632d` (desktop QA), `ecc9df7` (recovery mechanism).
+- Draft PR: [#1](https://github.com/zhihao21/personal-ai-os-v4/pull/1), open and still draft. Title and description were updated for the Notion-first priority; remote head verified at `45c951a`.
+- Current unrelated/partial work: modified `lib/journal.mjs`, `server.mjs`, `test/journal.test.mjs`, `test/server.test.mjs`, `web/app.mjs`, `web/index.html`, `web/style.css`; untracked `web/journal-app.mjs` and `web/journal.html`. This is the earlier standalone daily-journal UI/API work. **Preserve it without resetting, cleaning, or expanding it.** It is not a delivered Notion dashboard. The Notion-first documentation commit staged only `AGENTS.md` and `docs/` files; the local web changes remain unstaged and preserved.
 
 ## Corrected priority and verified state
 
@@ -21,7 +21,7 @@ Updated: 2026-10-16 09:36 Asia/Taipei. Recovery checkpoint; reconcile with Git a
 ## School Notion audit
 
 - The user supplied a school journal data-source identifier privately. It is a lead, **not** a verified page or schema; keep the identifier outside Git.
-- The shared school Notion link first showed an inaccessible-page message; navigating the same tab to Notion home redirected to `/login`. Thus this browser session is not authenticated to inspect the school workspace. Notion connector calls also returned ?nknown tool??in the previous turn. Do not conclude the database is absent.
+- The shared school Notion link first showed an inaccessible-page message; navigating the same tab to Notion home redirected to /login. This browser session is not authenticated to inspect the school workspace. The Notion connector was also unavailable in the previous turn. Do not conclude the database is absent.
 - Earlier read-only journal notes concerned a different workspace and cannot establish the school control center, schema, permissions, plan, chart count, 22:00 automation, Calendar/Gmail, finance, or task/plan state. Do not reuse the older personal-workspace journal as the school source.
 - Actual school control-center layout, databases, properties, relations, views, charts, templates, permissions, and integration behavior remain unverified. No Notion presentation or interaction can be claimed complete.
 - Current Notion help confirms linked views, filters, chart views, relations and rollups. Free plan has one chart; unlimited native charts require a paid plan. Native dashboard views are Business/Enterprise. The school plan is unknown. The three requested trends may require an embedded free component within Notion if the plan limit applies; that decision requires live inspection and permission checks.
@@ -36,7 +36,7 @@ Updated: 2026-10-16 09:36 Asia/Taipei. Recovery checkpoint; reconcile with Git a
 
 ## Validation and limitations
 
-- This turn: Git branch/tracking and dirty paths inspected; school Notion tab redirected to login. Official Notion documentation checked for chart limits, dashboard-plan restriction, linked data sources, views, relations, and backup/export limitations. No school Notion write or visual QA was possible.
+- This turn: Git branch/tracking and dirty paths inspected; school Notion tab redirected to login. Documentation diff hygiene passed, `45c951a` was pushed, branch ahead/behind was 0/0 after push, and Draft PR #1 remained open/draft with its Notion-first description. Official Notion documentation checked for chart limits, dashboard-plan restriction, linked data sources, views, relations, and backup/export limitations. No school Notion write or visual QA was possible.
 - Prior verified: 15/15 Node suite on committed journal code; 16/16 Node suite and synthetic local journal browser QA on paused uncommitted work. Re-run relevant tests before committing that work in any later task. The local browser result does not satisfy Notion acceptance.
 - No automatic session restart is configured or tested. Recovery is manual unless a scheduler is explicitly configured and tested.
 - No paid API, personal records, credentials, private mapping, or financial records may enter Git. No destructive recovery, bidirectional vault sync, main-branch merge, or account cutover.
