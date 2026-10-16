@@ -1,5 +1,7 @@
 # Integration preparation and migration acceptance
 
+Historical preparation document. The owner later selected Obsidian as the primary platform and authorized a non-destructive import from the school Notion workspace. See [docs/OBSIDIAN_MIGRATION.md](docs/OBSIDIAN_MIGRATION.md) for the current verified result. The proposal below is retained for context, not as the live source mapping.
+
 ## Notion mapping proposal (read-only preparation)
 
 The university journal data source and existing chart views were queried read-only. The journal has date, 1-10 mood/state scores, and a composite formula property; it is **not** an Emotional Aftereffect event source. No Notion source was modified. The event/observation properties below remain a proposal, not verified existing names. Match actual property IDs and types in a private mapping before importing; do not rename source properties to fit this proposal.

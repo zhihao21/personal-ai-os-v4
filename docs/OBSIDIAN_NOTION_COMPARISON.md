@@ -1,6 +1,6 @@
 # Phase 1 Notion / Obsidian comparison
 
-Updated 2026-10-16. This compares implemented behavior only. The school Notion workspace remains the primary operational source. The Obsidian prototype is isolated in a subfolder of an existing vault; it contains **no imported personal records**, and no synchronization or migration is enabled.
+Historical comparison before the 2026-10-16 platform decision. The owner subsequently selected Obsidian as the sole primary platform and authorized a non-destructive historical import. This table reflects the **pre-import** state only; see [OBSIDIAN_MIGRATION.md](OBSIDIAN_MIGRATION.md) and [DEVELOPMENT_STATE.md](DEVELOPMENT_STATE.md) for current evidence. No bidirectional synchronization is enabled.
 
 | Criterion | School Notion (verified) | Obsidian prototype (verified) | Open verification |
 | --- | --- | --- | --- |
@@ -12,7 +12,7 @@ Updated 2026-10-16. This compares implemented behavior only. The school Notion w
 | Offline and ownership | Offline behavior not tested; complete account migration remains a separate project. | Local Markdown, YAML properties, SVG, and Base files; originals in the vault were preserved. | Mobile vault availability and backup/restore are not yet tested. |
 | Automation | Enabled local Agent Host 22:00 Asia/Taipei questionnaire; manual dry-run verified read path only. | No automatic note-to-chart refresh or Notion sync. | Verify first real scheduled Notion questionnaire and response. |
 
-The current comparison does **not** establish functional parity. Notion has real life data and native rendered charts; Obsidian has a working isolated interface and record format but intentionally empty life data. Do not infer zero real-world risks from its empty cards.
+This pre-import comparison did **not** establish functional parity. The later authorized import populated Obsidian with actual school-source records; native Obsidian desktop/mobile visual QA remains open.
 
 ## Use the Obsidian prototype
 

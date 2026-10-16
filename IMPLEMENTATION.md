@@ -1,5 +1,7 @@
 # Emotional Aftereffect implementation
 
+This document describes the earlier standalone implementation. Current operation is Obsidian-first; the later authorized school Notion historical copy is documented in [docs/OBSIDIAN_MIGRATION.md](docs/OBSIDIAN_MIGRATION.md). Earlier statements below about unavailable Notion schema or no completed import are historical, not current status.
+
 Run with Node.js 22 or later: `npm start`, then open http://127.0.0.1:4310. No installation or paid service is needed. Run `npm test` for core tests.
 
 The original repository contained only README.md and .gitignore; both are preserved. The application uses dependency-free Node HTTP, plain browser modules, SVG charts and a versioned JSON store. Eight unnamed modules are intentionally placeholders pending the original specification.
