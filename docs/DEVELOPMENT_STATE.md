@@ -21,12 +21,12 @@ Updated: 2026-10-16 09:19 Asia/Taipei. This is a recovery checkpoint, not a sour
 
 ## Pending, in order
 
-1. Validate actual Notion database property IDs/types and source records only when the account/schema is available. Attachment and relation transfer remain manual until source details exist.
+1. Life first: design a separate lossless daily-journal format with synthetic validation, then confirm full Notion property IDs and numeric scale definitions before a private import preview. Do not coerce journals into emotional peaks. Academic work waits for uploaded material.
 2. Final year-end migration rehearsal, including real backup restore, requires source data and owner review. No account cutover or deletion is authorized.
 
 ## Blockers and limitations
 
-- Actual Notion schema, account scope, attachments, and relations are unavailable here. Mapping is a proposal only.
+- Read-only life-journal schema access confirmed this session. Full property IDs and scale definitions remain unavailable; this daily-journal schema lacks required Emotional Aftereffect peak/lifecycle/risk fields. Private mapping is stored outside the repository. No Notion data changed.
 - The integrated screenshot width was unstable; fixed-width desktop QA was completed using installed Edge and a separate synthetic data store.
 - Local Agent Host automation is available but none is configured/tested. No automatic restart is enabled. A scheduled run cannot be assumed to align with usage-limit reset.
 - Eight original module placeholders remain unspecified. Vault export is one-way. Risk scoring remains provisional and nonclinical.
@@ -39,4 +39,11 @@ Updated: 2026-10-16 09:19 Asia/Taipei. This is a recovery checkpoint, not a sour
 
 ## Exact next action
 
-After committing and pushing this checkpoint, confirm Draft PR #1 reflects the migration checker. Next, obtain the actual Notion database schema and a private source inventory with property IDs/types, relation targets, attachment hashes, and timezone policy. Reconcile the proposed mapping read-only; do not write to Notion or attempt account cutover.
+Design a separate daily-journal preservation format and synthetic roundtrip tests, using the private life-schema notes outside the repository. Obtain full property IDs and confirmed mood/state scale definitions before implementing a private import preview. Keep academic work deferred and Notion unchanged.
+
+## Fresh-session recovery check (2026-10-16)
+
+- Reconciled checkpoint with actual branch, clean initial working tree, recent commits and Draft PR #1; identified the already completed desktop QA commit and subsequent migration checker without repeating implementation.
+- Existing concurrent migration work was preserved; full suite rerun with required local networking/child-process access: 12/12 passed. Initial sandbox run was restricted and is not a product failure.
+- Recovery remains manual; no scheduler was configured or tested in this session. Previous Local Agent Host availability statement is historical evidence only.
+- Read-only life schema and one source page inspected; no personal record values or private mapping identifiers committed. Private notes: ../local-private/notion-life-mapping.md.

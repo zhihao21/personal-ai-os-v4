@@ -10,3 +10,7 @@ At the start of every new Codex session in this repository:
 6. Never commit personal records, vault contents, exports, tokens, credentials, or private mapping values. Keep Emotional Aftereffect modular, preserve existing features, use no paid APIs, and label risk scoring provisional and nonclinical.
 
 A rate-limited or interrupted Codex session does not restart itself. Local Agent Host currently reports automation support, but no automation has been configured or tested for this project. To request periodic re-invocation, explicitly configure a Local Agent Host automation targeting this workspace/branch with a prompt to read the checkpoint and reconcile Git before resuming; choose an interval supported by the host and test one manual run. Scheduled runs are not guaranteed to coincide with usage-limit reset or retry until success. Do not report automatic recovery as enabled until configuration and a fresh-run test both succeed.
+
+## Current user priority
+
+Life functionality comes first. Academic functionality waits for uploaded source material. Keep daily journals distinct from Emotional Aftereffect peaks; do not infer missing timestamps, scales, lifecycle, or risk values. Store private schema identifiers/mappings outside this public repository.

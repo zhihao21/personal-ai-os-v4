@@ -56,3 +56,11 @@ Both inventories use this format (illustrative hashes only):
 ```
 
 `records` hashes are SHA-256 of each complete canonical event JSON object with object keys sorted recursively; unknown source metadata is included. The [eventDigest](./lib/migration.mjs) implementation defines the exact algorithm. Attachment hashes must be calculated independently from file bytes on each side. Record IDs, attachment IDs and relation endpoints must be stable and independently inventoried; do not generate both manifests from the same destination export. Use explicit empty arrays only after verifying there are genuinely no attachments or relations. The checker rejects missing arrays, duplicate IDs, malformed hashes and dangling relation endpoints. It cannot prove an inventory is complete or that an attachment hash was actually taken from bytes; the human inventory and sampling gates above remain required.
+
+## Life-first scope and recovery reconciliation
+
+User priority (2026-10-16): life features first; academic work is deferred until source material is uploaded. Do not infer academic tasks from incidental text in life journals.
+
+A fresh session reconciled the old checkpoint with actual Git history: recovery was already committed at ecc9df7; desktop QA was subsequently recorded at d1b632d; migration evidence checking was completed at 5fc0be3. Preserve these completed tasks and inspect live status before resuming.
+
+Read-only Notion access is now available for a life-journal source. Its schema is a daily journal, not the Emotional Aftereffect event schema. Date-only entries must retain their precision. Numeric mood/state values require a confirmed scale; labels must retain their original meaning. Missing peak timestamp, lifecycle, intensity, four risk factors and followup relations block event import. Do not invent these fields or convert journal mood to signed followup mood. Full property IDs are not exposed by the current schema response. Private source identifiers and mapping remain outside the repository. No source records were changed or imported.
