@@ -1,0 +1,11 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {analyze,validate,merge} from '../lib/emotions.mjs';
+const event=(extra={})=>({id:'a',title:'Synthetic',valence:'negative',peakAt:'2026-01-01T00:00:00Z',intensity:9,status:'closed',riskFactors:[6,5,5,5],followups:[{at:'2026-01-02T00:00:00Z',mood:-3}],...extra});
+const data=(...events)=>({schemaVersion:1,events});
+test('closed 21/24 is historical only',()=>{const a=analyze(data(event()));assert.equal(a.activeHigh.length,0);assert.equal(a.historicalHigh[0].score,21);assert.equal(a.activeMax,null);});
+test('active 24/24 remains distinct',()=>{const a=analyze(data(event({status:'active',riskFactors:[6,6,6,6]})));assert.equal(a.activeHigh.length,1);assert.equal(a.historicalHigh.length,0);});
+test('positive and negative peaks; delayed observations retain signed mood',()=>{const a=analyze(data(event(),event({id:'b',valence:'positive',intensity:8})));assert.equal(a.positivePeak,8);assert.equal(a.negativePeak,9);assert.deepEqual(a.events[0].delayed[0],{at:'2026-01-02T00:00:00Z',mood:-3,hours:24});});
+test('future observations excluded at analysis clock',()=>{assert.equal(analyze(data(event()),new Date('2026-01-01T12:00Z')).events[0].latestMood,null);});
+test('reject malformed scales, dates, duplicate IDs and pre-peak observations',()=>{for(const e of [event({riskFactors:[25]}),event({peakAt:'bad'}),event({intensity:11}),event({followups:[{at:'2025-01-01',mood:0}]})])assert.throws(()=>validate(data(e)));assert.throws(()=>validate(data(event(),event())));});
+test('merge is idempotent and rejects conflicting source IDs without loss',()=>{const d=data(event({source:{system:'notion',originalId:'opaque'},custom:'retained'}));assert.deepEqual(merge(d,d),d);assert.throws(()=>merge(d,data(event({title:'changed'}))));assert.equal(JSON.parse(JSON.stringify(d)).events[0].custom,'retained');});

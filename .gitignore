@@ -147,3 +147,8 @@ vite.config.ts.timestamp-*
 
 # Turbo Repo
 .turbo
+
+# Private Personal AI OS data and migration exports
+/data/
+/exports/
+*.tmp
