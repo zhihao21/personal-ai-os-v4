@@ -1,12 +1,12 @@
 ﻿# Development state
 
-Updated: 2026-10-16 09:51 Asia/Taipei. Recovery checkpoint; Git and verified behavior take precedence over prose.
+Updated: 2026-10-16, current session. Recovery checkpoint; Git and verified behavior take precedence over prose.
 
 ## Repository and preserved work
 
-- Branch: feature/emotional-aftereffect, tracking origin/feature/emotional-aftereffect. Verified audit commit 6bee0eb was pushed with 0/0 ahead/behind; this checkpoint is updated in its own follow-up commit, so inspect git log -1 for its final SHA.
+- Branch: feature/emotional-aftereffect, tracking origin/feature/emotional-aftereffect. A fresh clone at a153abb was required because the VS Code working folder was an environment-only folder, not this repository. The clone was clean at recovery. Inspect git log -1 and status for the final SHA and ahead/behind state after this update.
 - Draft PR: [#1](https://github.com/zhihao21/personal-ai-os-v4/pull/1), titled Build Notion-first life intelligence foundation, open/draft/unmerged. Its description was updated with verified school-workspace findings; head matched 6bee0eb before this checkpoint follow-up.
-- Existing standalone journal UI/API work remains modified in `lib/journal.mjs`, `server.mjs`, `test/journal.test.mjs`, `test/server.test.mjs`, `web/app.mjs`, `web/index.html`, `web/style.css`; untracked `web/journal-app.mjs` and `web/journal.html`. Preserve these partial changes. They passed 16/16 synthetic Node tests and local desktop/narrow browser checks before the Notion-first correction, but are paused and are **not** a delivered Notion interface. Stage only documentation for this audit commit.
+- The previous checkpoint listed partial standalone journal UI/API changes in another checkout. They are **not present in this fresh clone** and were not discarded or recreated here. Preserve them if that original checkout is found. Standalone UI expansion remains paused and is **not** a delivered Notion interface.
 
 ## Current mission and scope
 
@@ -18,6 +18,7 @@ Updated: 2026-10-16 09:51 Asia/Taipei. Recovery checkpoint; Git and verified beh
 ## Completed and verified
 
 - Local Emotional Aftereffect module has validated persistence, backups, conflict-safe edits/imports, positive/negative peaks, delayed observations, and separate historical/current indicators. Synthetic browser QA and the closed 21/24 regression passed earlier. This is supporting code only, not proof of Notion presentation.
+- This session strengthened the independent risk engine: events can carry validated cross-domain categories, analysis reports active and historical counts separately per domain, and peaks/followups require real timezone-aware instants before elapsed hours are computed. Existing events without categories remain valid and are counted as unclassified. The 21/24 historical regression remains closed. Synthetic Node suite passed 17/17 in the fresh clone; Notion presentation is still pending.
 - Separate lossless daily-journal preservation code is committed. Earlier committed Node suite passed 15/15. Journal mood/state 1-10 and arithmetic-mean composite must remain distinct from Emotional Aftereffect observations.
 - Configurable one-way Obsidian snapshots and an offline migration evidence checker were implemented/tested previously. Neither proves complete Notion migration.
 - Recovery workflow and Notion-first rule are in [../AGENTS.md](../AGENTS.md). The audited reuse-first proposal is in [NOTION_LIFE_DESIGN.md](NOTION_LIFE_DESIGN.md). A precise private ID/view change sheet is stored outside Git under `../local-private/`; do not commit it.
@@ -26,6 +27,7 @@ Updated: 2026-10-16 09:51 Asia/Taipei. Recovery checkpoint; Git and verified beh
 - Existing Task source has eight records and weekly/priority/unscheduled/completion views. Goals and Plans has an existing unified calendar, goal-progress view, and task/journal relations; Goal Tracking currently has zero records.
 - Finance Center already has actual-data/currency-filtered charts; the transaction source and its monthly actual-TWD chart returned zero rows. Do not infer spending is zero or fabricate transactions. Life Risk Analysis currently exposes narrative text, not an Emotional Aftereffect event/observation view in the fetched page. Search found references, not a separate event source; do a final duplicate search before proposing creation.
 - Notion connector reports fetch/query and some write tools available, but this does not establish page-level write permission or user authorization. Existing chart configurations prove native charts are in use; plan and entitlement for an additional chart remain unknown.
+- This session reconfirmed the university account and fetched the hub, Life Risk Analysis page, journal page/source, and saved journal views read-only. Risk page still has narrative content only. Search for Emotional Aftereffect/risk-event sources returned the risk page and references but no distinct event database; this is not proof against hidden sources. The existing journal source has daily mood/state chart views and a composite formula property, but the connector returned formula references rather than code/results. No Notion write occurred.
 
 ## Pending, in order
 
@@ -37,6 +39,6 @@ Updated: 2026-10-16 09:51 Asia/Taipei. Recovery checkpoint; Git and verified beh
 
 ## Validation, blockers, and exact next action
 
-- This turn's read-only Notion audit verified school account identity; fetched hub, control center, journal source/views, tasks, goals/plans, finance source/views, schedule, risk page, system page; queried row counts and saved views. No Notion write occurred. Full Node suite passed 16/16 on the preserved local code. The shared Notion browser session is unauthenticated; direct navigation currently renders only a loading skeleton. The connector does not expose formula code/results or templates in fetched entities, so these are unverified.
+- Prior read-only audit verified school account identity and existing hub, control center, journal, tasks, goals/plans, finance, schedule, risk, and system structures. This session reconfirmed school-account MCP read access. The current browser tools could not attach to the shared Notion tab (`readPage` and `openBrowserPage` failed; computer-use tab inventory was empty), so rendered Notion visual/interaction QA and formula inspection are still blocked. The connector does not expose the composite formula code/result through fetch; rows return formula references. No Notion write occurred. The fresh-clone Node suite passed 17/17.
 - Prior local tests and browser results apply only to supporting web code. Notion visual QA and integration runtime checks remain open. No paid API, personal record, credential, private mapping, or financial record is committed. No automatic restart is configured/tested. No main merge or account cutover.
-- **Exact next action:** obtain an authenticated school Notion browser session (or equivalent rendered read-only access), inspect the existing journal composite formula and hub/journal/risk pages visually, then finish the private exact change list and request authorization before any Notion write. If browser access remains unavailable, continue only connector-backed read-only checks and report the visual QA blocker.
+- **Exact next action:** attach an authenticated school Notion browser session to inspect the composite formula and existing page presentation; finish the exact reuse-first write list for the existing Life Risk Analysis page (and any event/observation source only after a final duplicate check), then obtain the required Notion write authorization before applying it. Verify desktop/narrow Notion presentation after any authorized write. Continue independent Phase 1 code work only where it supports the Notion surface.
