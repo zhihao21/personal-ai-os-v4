@@ -5,7 +5,7 @@ Updated: 2026-10-16, current session. Recovery checkpoint; Git and verified beha
 ## Repository and preserved work
 
 - Branch: feature/emotional-aftereffect, tracking origin/feature/emotional-aftereffect. A fresh clone at a153abb was required because the VS Code working folder was an environment-only folder, not this repository. The clone was clean at recovery. Inspect git log -1 and status for the final SHA and ahead/behind state after this update.
-- Draft PR: [#1](https://github.com/zhihao21/personal-ai-os-v4/pull/1), titled Build Notion-first life intelligence foundation, open/draft/unmerged. Its description was updated with verified school-workspace findings; head matched 6bee0eb before this checkpoint follow-up.
+- Draft PR: [#1](https://github.com/zhihao21/personal-ai-os-v4/pull/1), titled Build Notion-first life intelligence foundation, open/draft/unmerged. Its description was updated after verified risk-engine commit 97f49c3 was pushed; the branch was 0 ahead/0 behind origin immediately afterward.
 - The previous checkpoint listed partial standalone journal UI/API changes in another checkout. They are **not present in this fresh clone** and were not discarded or recreated here. Preserve them if that original checkout is found. Standalone UI expansion remains paused and is **not** a delivered Notion interface.
 
 ## Current mission and scope
@@ -28,6 +28,7 @@ Updated: 2026-10-16, current session. Recovery checkpoint; Git and verified beha
 - Finance Center already has actual-data/currency-filtered charts; the transaction source and its monthly actual-TWD chart returned zero rows. Do not infer spending is zero or fabricate transactions. Life Risk Analysis currently exposes narrative text, not an Emotional Aftereffect event/observation view in the fetched page. Search found references, not a separate event source; do a final duplicate search before proposing creation.
 - Notion connector reports fetch/query and some write tools available, but this does not establish page-level write permission or user authorization. Existing chart configurations prove native charts are in use; plan and entitlement for an additional chart remain unknown.
 - This session reconfirmed the university account and fetched the hub, Life Risk Analysis page, journal page/source, and saved journal views read-only. Risk page still has narrative content only. Search for Emotional Aftereffect/risk-event sources returned the risk page and references but no distinct event database; this is not proof against hidden sources. The existing journal source has daily mood/state chart views and a composite formula property, but the connector returned formula references rather than code/results. No Notion write occurred.
+- The earlier generic Notion mapping text in [../INTEGRATIONS.md](../INTEGRATIONS.md) was reconciled with verified school-account and journal-source access; Emotional Aftereffect mappings remain proposed. The 22:00 questionnaire appears in workspace text, but no automation runtime evidence was available through the current Notion MCP tools. An authenticated visual browser remains required.
 
 ## Pending, in order
 

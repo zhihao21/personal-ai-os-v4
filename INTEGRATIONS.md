@@ -2,13 +2,14 @@
 
 ## Notion mapping proposal (read-only preparation)
 
-No Notion database was queried or modified. These are proposed properties, not verified existing names. Match actual property IDs and types in a private mapping before importing; do not rename source properties to fit this proposal.
+The university journal data source and existing chart views were queried read-only. The journal has date, 1-10 mood/state scores, and a composite formula property; it is **not** an Emotional Aftereffect event source. No Notion source was modified. The event/observation properties below remain a proposal, not verified existing names. Match actual property IDs and types in a private mapping before importing; do not rename source properties to fit this proposal.
 
 | Canonical field | Proposed Notion property / type | Mapping rule |
 | --- | --- | --- |
 | id | Native page ID | Preserve stable page ID; never derive from title |
 | title | Name / title | Concatenate plain text; retain original rich text in source metadata |
 | valence | Direction / select | Explicit value map to positive or negative; reject unmapped options |
+| domains | Risk areas / multi-select | Explicit map to emotional, relationship, academic, financial, health, lifestyle, time, or project; missing stays unclassified |
 | peakAt | Peak time / date | Require time and timezone; date-only values need review |
 | intensity | Intensity / number | Required finite 0–10; no default for missing values |
 | status | Tracking status / status or select | Explicit active/closed map; no inference from score or age |
@@ -39,7 +40,7 @@ Target: all gates passed by 2026-12-31 before changing the authoritative account
 
 ## Remaining limitations
 
-Source Notion schema and account scope are unverified. Attachment transfer and relation reconciliation remain manual. No account migration has been performed. Eight original module placeholders remain placeholders. Risk scoring remains provisional and nonclinical; no automatic emergency determination. Authentication/shared hosting and bidirectional vault synchronization remain out of scope. Charts distinguish direction and lifecycle, but multiple same-direction events can overlap; detailed event lists remain the source for individual values.
+University account and journal source schema are verified read-only; the proposed Emotional Aftereffect source schema, composite formula behavior, Notion write permission, and rendered presentation are unverified. Attachment transfer and relation reconciliation remain manual. No account migration has been performed. Nine roadmap module interfaces remain reserved according to AGENTS.md. Risk scoring remains provisional and nonclinical; no automatic emergency determination. Authentication/shared hosting and bidirectional vault synchronization remain out of scope. Charts distinguish direction and lifecycle, but multiple same-direction events can overlap; detailed event lists remain the source for individual values.
 ## Offline migration evidence check
 
 `node tools/check-migration.mjs SOURCE_INVENTORY.json DESTINATION_INVENTORY.json CANONICAL_EXPORT.json` reads three private files without changing them or contacting Notion. Keep all three outside the repository. Exit code 0 means the supplied inventories match the canonical export; 1 means a mismatch; 2 means invalid/incomplete evidence. Output contains counts and mismatch categories, not record IDs or personal content. This is one migration gate, not permission to cut over or delete an account.
