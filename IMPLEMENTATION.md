@@ -8,7 +8,7 @@ The original repository contained only README.md and .gitignore; both are preser
 
 Four provisional self-reported factors (distress, functional impact, persistence burden, insufficient support) each range 0–6. Sum is 0–24; >=21 prompts review. This heuristic is not a validated clinical scale. Positive peaks do not automatically imply risk. Only explicitly active, already-started events contribute to current risk. Closed events retain their original score and appear only as history. No score alone declares an emergency. No active records means unknown/no data, not zero risk.
 
-Delayed impact uses observed mood (-10..10), timestamps and hours since peak. It does not invent a baseline, diagnose, or infer causation. Followups can be recorded for closed events without reopening them. Reopening requires an explicit action.
+Delayed impact uses explicitly recorded mood (-10..10), timestamps and hours since peak. When at least two followups have occurred, `observedMoodDelta` is the latest observed mood minus the first observed mood; otherwise it is null. Peak intensity and daily journal scores are never substituted for an observation baseline. This measured change does not establish causation, diagnose, or predict a future effect. Followups can be recorded for closed events without reopening them. Reopening requires an explicit action.
 
 ## Data and migration
 

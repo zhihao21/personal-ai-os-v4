@@ -24,3 +24,14 @@ test('cross-domain counts keep active and historical risk separate',()=>{
   assert.equal(analyze(data(event())).byDomain.unclassified.historical,1);
   for(const domains of [['emotional','emotional'],['unknown'],null]) assert.throws(()=>validate(data(event({domains}))));
 });
+test('delayed mood change requires two observed followups and never uses peak intensity as a baseline',()=>{
+  const observed=event({valence:'positive',intensity:10,followups:[
+    {at:'2026-01-01T01:00:00Z',mood:4},
+    {at:'2026-01-02T00:00:00Z',mood:-2}
+  ]});
+  assert.equal(analyze(data(observed),new Date('2026-01-01T12:00:00Z')).events[0].observedMoodDelta,null);
+  const result=analyze(data(observed),new Date('2026-01-03T00:00:00Z')).events[0];
+  assert.equal(result.observedMoodDelta,-6);
+  assert.equal(result.delayed[1].hours,24);
+  assert.equal(analyze(data(event()),new Date('2026-01-03T00:00:00Z')).events[0].observedMoodDelta,null);
+});
