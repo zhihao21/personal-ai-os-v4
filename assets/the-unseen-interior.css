@@ -1,54 +1,100 @@
-/* Scoped to daily-use module notes; Hearth retains its own styling. */
+/* Shared visual tokens; only Hearth and The Unseen module views receive them. */
+.hearth-view,
 .the-unseen-module.markdown-preview-view,
 .the-unseen-module.markdown-source-view {
-  --background-primary: #10151c;
+  /* Dataview resolves the existing vault image to a device-local resource URL. */
+  --unseen-background-image: none;
+  --unseen-panel-opacity: 0.72;
+  --unseen-panel: rgb(13 22 31 / var(--unseen-panel-opacity));
+  --unseen-panel-strong: rgba(11, 19, 28, 0.82);
+  --unseen-panel-soft: rgba(26, 36, 48, 0.52);
+  --unseen-border: rgba(214, 225, 240, 0.20);
+  --unseen-blur: 8px;
+  --unseen-radius: 14px;
+  --unseen-purple: #c9b5ed;
+  --unseen-blue: #add1ec;
+  --unseen-green: #acd7bb;
+}
+
+/* Obsidian's content width and text flow remain controlled by Obsidian. */
+.the-unseen-module.markdown-preview-view,
+.the-unseen-module.markdown-source-view {
+  --unseen-background-overlay: linear-gradient(90deg, rgba(5, 9, 15, 0.58), rgba(5, 9, 15, 0.39) 52%, rgba(5, 9, 15, 0.49));
+  --background-primary: #101820;
   --background-secondary: #1a222d;
   --background-secondary-alt: #202b37;
   --text-normal: #edf0f5;
   --text-muted: #b2bdcc;
-  --interactive-accent: #a898e7;
-  --link-color: #abbcf4;
+  --interactive-accent: var(--unseen-purple);
+  --link-color: var(--unseen-blue);
   --link-color-hover: #d8d1ff;
   --h1-color: #f5f3fc;
   --h2-color: #d7d2f6;
-  background: #10151c;
+  background-color: #080d13;
+  background-image:var(--unseen-background-overlay),var(--unseen-background-image);
+  background-position: center, center;
+  background-size: cover;
+  background-repeat: no-repeat;
   color: #edf0f5;
 }
 .the-unseen-module .inline-title {display:none}
-.the-unseen-module h1 {font-family:Georgia,'Noto Serif TC',serif;font-size:clamp(1.9rem,3vw,2.6rem);line-height:1.18;margin:.25rem 0 .55rem;letter-spacing:-.015em}
-.the-unseen-module h1 + p {font-size:.98rem;color:#bdc9d8;margin:0 0 .9rem}
+.the-unseen-module .unseen-background-hook {display:none}
+.the-unseen-module h1 {font-family:Georgia,'Noto Serif TC',serif;font-size:clamp(1.9rem,3vw,2.6rem);line-height:1.18;margin:.25rem 0 .55rem;letter-spacing:-.015em;text-shadow:0 2px 20px rgba(0,0,0,.72)}
+.the-unseen-module h1 + p {font-size:.98rem;color:#d4dce5;margin:0 0 .9rem;text-shadow:0 1px 8px rgba(0,0,0,.75)}
 .the-unseen-module h2 {font-size:1.13rem;margin:1.7rem 0 .7rem;padding:0 0 .45rem;border-bottom:1px solid #414958}
-.the-unseen-module h2:nth-of-type(3n + 1) {color:#c7b8f1}
-.the-unseen-module h2:nth-of-type(3n + 2) {color:#b2c9f0}
-.the-unseen-module h2:nth-of-type(3n) {color:#abd2bb}
+.the-unseen-module h2:nth-of-type(3n + 1) {color:var(--unseen-purple)}
+.the-unseen-module h2:nth-of-type(3n + 2) {color:var(--unseen-blue)}
+.the-unseen-module h2:nth-of-type(3n) {color:var(--unseen-green)}
 .the-unseen-module a {text-decoration:none}
 .the-unseen-module a:hover {text-decoration:underline}
 .the-unseen-module .callout,
 .the-unseen-module .block-language-dataviewjs,
-.the-unseen-module .internal-embed:not(.image-embed) {
-  background:rgba(28,36,48,.88);
-  border:1px solid #424c60;
-  border-radius:14px;
-  box-shadow:0 7px 22px #0004;
+.the-unseen-module .internal-embed {
+  background:var(--unseen-panel);
+  border:1px solid var(--unseen-border);
+  border-radius:var(--unseen-radius);
+  -webkit-backdrop-filter:blur(var(--unseen-blur));
+  backdrop-filter:blur(var(--unseen-blur));
+  box-shadow:0 12px 30px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.055);
   padding:12px 16px;
 }
 .the-unseen-module .callout {--callout-color:168,152,231}
 .the-unseen-module .callout[data-callout="warning"] {--callout-color:171,201,239}
 .the-unseen-module .callout[data-callout="note"] {--callout-color:155,201,172}
 .the-unseen-module .block-language-dataviewjs {overflow-x:auto}
+.the-unseen-module .internal-embed:not(.image-embed) {overflow-x:auto}
+.the-unseen-module .bases-embed,
+.the-unseen-module .block-language-base {
+  --bases-table-header-background:var(--unseen-panel-strong);
+  --bases-table-summary-background:var(--unseen-panel-strong);
+  --bases-table-group-background:var(--unseen-panel-soft);
+  --bases-cards-background:var(--unseen-panel);
+  --bases-cards-container-background:transparent;
+  --bases-kanban-container-background:transparent;
+  --bases-kanban-card-background:var(--unseen-panel);
+}
 .the-unseen-module .unseen-metrics {display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,10rem),1fr));gap:10px;min-width:0}
-.the-unseen-module .unseen-metric {display:flex;flex-direction:column;gap:3px;padding:10px 12px;background:#253041;border:1px solid #48556a;border-radius:10px;min-width:0}
+.the-unseen-module .unseen-metric {display:flex;flex-direction:column;gap:3px;padding:10px 12px;background:var(--unseen-panel-soft);border:1px solid var(--unseen-border);border-radius:10px;min-width:0}
 .the-unseen-module .unseen-metric:nth-child(3n + 1) {border-top:2px solid #a898e7}
 .the-unseen-module .unseen-metric:nth-child(3n + 2) {border-top:2px solid #87abe3}
 .the-unseen-module .unseen-metric:nth-child(3n) {border-top:2px solid #89bca0}
 .the-unseen-module .unseen-metric strong {font-size:1.4rem;color:#f3f3f8;line-height:1.15}
 .the-unseen-module .unseen-metric span {font-size:.83rem;color:#b9c6d6}
 .the-unseen-module table {width:100%;font-size:.9rem}
-.the-unseen-module th {color:#d9d8ef;background:#293344}
-.the-unseen-module td {color:#e9edf3;background:#202a38}
-.the-unseen-module td,.the-unseen-module th {border-color:#465163;padding:8px 10px}
-.the-unseen-module .image-embed img {max-width:100%;height:auto;border-radius:12px;border:1px solid #3c4658}
+.the-unseen-module th {color:#e1e5ef;background:var(--unseen-panel-strong)}
+.the-unseen-module td {color:#edf1f5;background:rgba(15,23,32,.36)}
+.the-unseen-module td,.the-unseen-module th {border-color:var(--unseen-border);padding:8px 10px}
+.the-unseen-module .table-view-table,
+.the-unseen-module .table-view-table tbody,
+.the-unseen-module .table-view-table tr {background:transparent}
+.the-unseen-module .image-embed {display:block;box-sizing:border-box;max-width:100%;overflow:hidden}
+.the-unseen-module .image-embed img {max-width:100%;height:auto;border-radius:10px}
 @media (max-width:700px) {
+  .the-unseen-module.markdown-preview-view,
+  .the-unseen-module.markdown-source-view {background-position:center,58% center}
+  .the-unseen-module .callout,
+  .the-unseen-module .block-language-dataviewjs,
+  .the-unseen-module .internal-embed {background:var(--unseen-panel-strong)}
   .the-unseen-module .block-language-dataviewjs {padding:9px 10px}
   .the-unseen-module table {font-size:.82rem}
 }
