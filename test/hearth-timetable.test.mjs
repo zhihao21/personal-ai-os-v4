@@ -6,10 +6,10 @@ test('recurring timetable reads one private source without creating event notes'
   for (const query of [todayTimetableQuery, weeklyTimetableQuery]) {
     assert.match(query, /Data\/每週課表/);
     assert.doesNotMatch(query, /vault\.(create|modify)/);
-    assert.match(query, /time_status/);
+    assert.doesNotMatch(query, /待確認|unverified|tentative/);
   }
   assert.match(todayTimetableQuery, /Asia\/Taipei/);
   assert.match(weeklyTimetableQuery, /週五/);
   assert.match(weeklyTimetableQuery, /無固定課程/);
-  assert.match(weeklyTimetableQuery, /來源星期衝突/);
+  assert.match(weeklyTimetableQuery, /entry\.weekday/);
 });
