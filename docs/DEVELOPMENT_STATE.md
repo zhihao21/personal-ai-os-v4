@@ -1,3 +1,20 @@
+# Current journal display checkpoint - 2026-10-17
+
+- Corrected the shared journal writer: previously it saved questionnaire answers only in YAML while the Markdown body retained empty template headings. It now renders a visible score/tag/record summary and collapsed callouts containing the original event and reflection text. Partial updates regenerate this managed section while preserving other body content, frontmatter metadata, record IDs, and submission IDs. The journal template no longer creates duplicate visible titles or empty sections.
+- Repaired the existing `Records/Journal/2026-10-16.md` with the shared writer. Confirmed the original YAML mood 3/10, state 1/10, five emotion tags, event and reflection remain intact; the event, reflection, and historical safety wording also appear in the Markdown body. Exactly one date file remains. The focused journal test passes 4/4. Obsidian reading-mode visual inspection is pending because the computer-use inventory exposed no Obsidian window; inspect this page in reading mode to confirm callout appearance.
+- Restarted the existing tunnel client so its MCP child loads the corrected writer; the replacement client returned readyz=200. No new key or profile was created. No private journal note was added to Git. Unrelated startup changes remain untouched; Draft PR #1 remains unmerged.
+
+---
+
+# Previous tunnel checkpoint - 2026-10-17 ChatGPT-to-Obsidian write verified
+
+- The existing Secure MCP Tunnel was associated with the authorized ChatGPT workspace; its running client returned readyz=200. No new key or daemon was created. ChatGPT registered and connected the private **The Unseen Journal** custom MCP plugin using the existing tunnel. Its exposed tools are exactly `upsert_daily_journal`, `get_daily_journal`, `verify_daily_journal`, `list_recent_journals`, and `add_life_event`.
+- In an authenticated ChatGPT conversation with that plugin selected, ChatGPT invoked `get_daily_journal`, `upsert_daily_journal`, `get_daily_journal`, `verify_daily_journal`, and a repeat `upsert_daily_journal` with the same submission ID. The first read found no 2026-10-16 journal; the write reported `created: true`; readback returned the saved entry; verification reported `exists: true, matches: true`; the repeat reported `replayed: true, created: false, updated: false`.
+- Independently checked the canonical vault file at `Records/Journal/2026-10-16.md`: exactly one journal file exists for that date. Its stored date, mood 3/10, state 1/10, five emotional tags, original Chinese event and reflection, historical safety statement, and submission ID match the ChatGPT request. Important memories and future plans remain unfilled. No new Emotional Aftereffect risk event was created; EA-NEG-001 remains separate. No journal content or credential was added to Git.
+- **End-to-end desktop ChatGPT write and MCP readback: passed.** The older blocked checkpoint below is retained as history and superseded by this result. Android plugin availability, Obsidian Sync propagation, and continued operation when the Windows tunnel host is offline were not tested.
+
+---
+
 # Current development checkpoint — 2026-10-17 startup animation and Codex background investigation
 
 - Implemented an original local CSS/JS startup animation in `startup/`, with configurable text, six-digit accent color, synthesized beep, 0.35–3× speed, Escape/button skip, reduced-motion handling, and session/daily/always playback. The supplemental Personal AI OS web views `/` and `/dashboard` load it independently of their data logic. No Obsidian vault, personal record, application package, or previous uncommitted work was changed.
