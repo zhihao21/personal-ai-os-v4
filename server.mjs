@@ -17,7 +17,7 @@ async function save(data) {
   try { await copyFile(file,path.join(dir,`backup-${Date.now()}-${randomUUID()}.json`)); } catch(e) {if(e.code!=='ENOENT') throw e;}
   const tmp = `${file}.${randomUUID()}.tmp`; await writeFile(tmp,JSON.stringify(data,null,2)); await rename(tmp,file);
 }
-const assets = {'/':'web/index.html','/app.mjs':'web/app.mjs','/style.css':'web/style.css','/emotions.mjs':'lib/emotions.mjs','/dashboard':'web/dashboard.html','/dashboard.css':'web/dashboard.css','/dashboard.mjs':'web/dashboard.mjs'};
+const assets = {'/':'web/index.html','/app.mjs':'web/app.mjs','/style.css':'web/style.css','/emotions.mjs':'lib/emotions.mjs','/dashboard':'web/dashboard.html','/dashboard.css':'web/dashboard.css','/dashboard.mjs':'web/dashboard.mjs','/startup/animation.css':'startup/animation.css','/startup/animation.mjs':'startup/animation.mjs','/startup/start.mjs':'startup/start.mjs','/startup/config.json':'startup/config.json'};
 const server = http.createServer(async(req,res)=>{
   res.setHeader('Cache-Control','no-store');
   res.setHeader('Content-Security-Policy',"default-src 'self'; style-src 'self'; script-src 'self'; connect-src 'self'; object-src 'none'; frame-ancestors 'none'");
@@ -44,7 +44,7 @@ const server = http.createServer(async(req,res)=>{
       queue=task.catch(()=>{}); return json(200,await task);
     }
     if(req.method==='GET' && assets[requestPath]) {
-      const name=assets[requestPath];res.setHeader('Content-Type',name.endsWith('.html')?'text/html; charset=utf-8':name.endsWith('.css')?'text/css':'text/javascript');
+      const name=assets[requestPath];res.setHeader('Content-Type',name.endsWith('.html')?'text/html; charset=utf-8':name.endsWith('.css')?'text/css':name.endsWith('.json')?'application/json':'text/javascript');
       return res.end(await readFile(path.join(root,name)));
     }
     json(404,{error:'Not found'});

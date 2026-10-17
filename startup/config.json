@@ -1,0 +1,12 @@
+{
+  "enabled": true,
+  "mode": "session",
+  "brand": "PERSONAL AI OS V4.0",
+  "title": "The Unseen",
+  "subtitle": "CAPTURE · ORGANIZE · UNDERSTAND",
+  "accent": "#63d7df",
+  "speed": 1,
+  "audio": false,
+  "allowSkip": true,
+  "steps": ["Initializing", "Organizing signals", "Preparing your space", "Ready"]
+}
