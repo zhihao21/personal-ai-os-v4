@@ -1,5 +1,6 @@
 import {readFile, writeFile, mkdir} from 'node:fs/promises';
 import {join} from 'node:path';
+import {compileInteriorCss} from '../lib/obsidian-interior-style.mjs';
 
 const vault = process.argv[2];
 if (!vault) throw new Error('Pass the backed-up Obsidian vault path.');
@@ -10,7 +11,7 @@ const view = dv.container.closest('.markdown-preview-view.the-unseen-module');
 if (file && view) view.style.setProperty('--unseen-background-image', 'url("' + dv.app.vault.getResourcePath(file) + '")');
 dv.container.closest('.block-language-dataviewjs')?.classList.add('unseen-background-hook');
 \`\`\``;
-const note = (title, summary, actions, body) => `---\ncssclasses:\n  - the-unseen-module\n---\n${backgroundHook}\n\n# ${title}\n\n${summary}\n\n${actions}\n\n${body.trim()}\n`;
+const note = (title, summary, actions, body) => `---\ncssclasses:\n  - the-unseen-module\n---\n# ${title}\n\n${summary}\n\n${actions}\n\n${body.trim()}\n`;
 const block = source => `\`\`\`dataviewjs\n${source.trim()}\n\`\`\``;
 const count = (items) => block(`
 const root = ${JSON.stringify(root + '/Records')};
@@ -169,18 +170,29 @@ ${tasks}
 };
 
 const rootPath = join(vault, root);
-if (process.argv.includes('--background-only')) {
+const installedCssPath=join(vault,'.obsidian','snippets','the-unseen-interior.css');
+async function installInteriorCss(){
+  const template=await readFile(new URL('../assets/the-unseen-interior.css',import.meta.url),'utf8');
+  const image=await readFile(join(rootPath,'Assets','the-unseen-evening.png'));
+  await mkdir(join(vault,'.obsidian','snippets'),{recursive:true});
+  await writeFile(installedCssPath,compileInteriorCss(template,image),'utf8');
+}
+if (process.argv.includes('--rendering-only')||process.argv.includes('--background-only')) {
   let updated = 0;
   for (const name of Object.keys(pages)) {
     const file = join(rootPath, name);
     const existing = await readFile(file, 'utf8');
-    if (existing.includes("view.style.setProperty('--unseen-background-image'")) continue;
     const frontmatter = /^---\r?\n[\s\S]*?\r?\n---\r?\n/.exec(existing)?.[0];
     if (!frontmatter || !frontmatter.includes('the-unseen-module')) throw new Error(`Not a module page: ${name}`);
-    await writeFile(file, frontmatter + backgroundHook + '\n\n' + existing.slice(frontmatter.length), 'utf8');
-    updated++;
+    if (existing.includes(backgroundHook)) {
+      const next=existing.replace(backgroundHook+'\n\n','').replace(backgroundHook,'');
+      if(next===existing||next.includes(backgroundHook))throw Error(`Could not remove legacy background hook: ${name}`);
+      await writeFile(file,next,'utf8');
+      updated++;
+    }
   }
-  console.log(JSON.stringify({modulePages:Object.keys(pages).length,updated}));
+  await installInteriorCss();
+  console.log(JSON.stringify({modulePages:Object.keys(pages).length,updated,background:'embedded existing Hearth PNG'}));
   process.exit(0);
 }
 for (const [name, content] of Object.entries(pages)) {
@@ -225,6 +237,5 @@ const appearance = JSON.parse(await readFile(appearancePath,'utf8'));
 appearance.enabledCssSnippets ??= [];
 if (!appearance.enabledCssSnippets.includes('the-unseen-interior')) appearance.enabledCssSnippets.push('the-unseen-interior');
 await writeFile(appearancePath,JSON.stringify(appearance,null,2)+'\n','utf8');
-await mkdir(join(vault,'.obsidian','snippets'),{recursive:true});
-await writeFile(join(vault,'.obsidian','snippets','the-unseen-interior.css'),await readFile(new URL('../assets/the-unseen-interior.css',import.meta.url),'utf8'),'utf8');
+await installInteriorCss();
 console.log(JSON.stringify({pages:Object.keys(pages).length,hearthCards:dashboard.cards.length,targets}));

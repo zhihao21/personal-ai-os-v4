@@ -34,7 +34,8 @@ test('daily questionnaire creates once and changes only answered fields',async()
   assert.match(note,/Synthetic thought/);
   assert.match(note,/> 心情：\*\*8\/10\*\* · 今日狀態：\*\*5\/10\*\*/);
   assert.match(note,/> \[!note\]- 想法與擔憂\n> Synthetic thought/);
-  assert.equal((note.match(/the-unseen-journal:start/g)??[]).length,1);
+  assert.equal((note.match(/^## 今日摘要$/gm)??[]).length,1);
+  assert.doesNotMatch(note,/<!-- the-unseen-journal:/);
   assert.doesNotMatch(note,/## 今日事件/);
   await writeFile(target,note+'\nManual private note to preserve.\n');
   const second=await saveJournalAnswers(vault,{date,mood:9});
@@ -45,7 +46,8 @@ test('daily questionnaire creates once and changes only answered fields',async()
   assert.match(note,/state: 5/);
   assert.match(note,/Synthetic thought/);
   assert.match(note,/> 心情：\*\*9\/10\*\* · 今日狀態：\*\*5\/10\*\*/);
-  assert.equal((note.match(/the-unseen-journal:start/g)??[]).length,1);
+  assert.equal((note.match(/^## 今日摘要$/gm)??[]).length,1);
+  assert.doesNotMatch(note,/<!-- the-unseen-journal:/);
   assert.match(note,/Manual private note to preserve/);
   assert.equal((await saveJournalAnswers(vault,{date,mood:9})).updated,false);
   await assert.rejects(()=>saveJournalAnswers(vault,{date,mood:11}),/mood must/);

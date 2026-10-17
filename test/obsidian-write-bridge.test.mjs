@@ -7,6 +7,8 @@ import {mkdtemp,mkdir,readFile,writeFile,rm,symlink} from 'node:fs/promises';
 import {randomUUID} from 'node:crypto';
 import {installPrototype,prototypeName} from '../lib/obsidian-prototype.mjs';
 import {createObsidianBridge} from '../lib/obsidian-write-bridge.mjs';
+import {readOriginalMetadata} from '../lib/obsidian-journal-originals.mjs';
+import {saveJournalAnswers} from '../lib/obsidian-journal-entry.mjs';
 
 const base=()=>mkdtemp(path.join(os.tmpdir(),'aios-bridge-test-'));
 async function setup(){
@@ -27,10 +29,24 @@ test('journal, event, finding and access guards use only synthetic records',asyn
     const target=path.join(root,'Records','Journal','2040-04-05.md');
     const bytes=await readFile(target,'utf8');
     assert.match(bytes,/Synthetic reflection/);
+    assert.match(bytes,/original_submissions_index: \[/);
+    assert.doesNotMatch(bytes,/<!-- the-unseen-original:/);
+    assert.doesNotMatch(bytes,/<!-- the-unseen-journal:/);
     const repeated=await bridge.upsertJournal(first);
     assert.equal(repeated.replayed,true);
     assert.equal(await readFile(target,'utf8'),bytes);
     assert.equal(repeated.original_submissions[0].original_text,first.original_text);
+    const indexed=readOriginalMetadata(bytes);
+    const legacy=bytes.replace(/^original_submissions_index:.*\r?\n/m,'')
+      .replace(/^> \[!quote\]- /m,`<!-- the-unseen-original:${JSON.stringify(indexed[0])} -->\n> [!quote]- `)
+      .replace(/(> ```\r?\n)$/,`$1<!-- the-unseen-original:end -->\n`);
+    await writeFile(target,legacy);
+    const repaired=await saveJournalAnswers(vault,{date:first.date,mood:7});
+    assert.equal(repaired.updated,true);
+    const clean=await readFile(target,'utf8');
+    assert.doesNotMatch(clean,/<!-- the-unseen-/);
+    assert.deepEqual(readOriginalMetadata(clean),indexed);
+    assert.equal((await bridge.getJournal({date:first.date})).original_submissions[0].original_text,first.original_text);
     await assert.rejects(()=>bridge.upsertJournal({date:first.date,submission_id:randomUUID(),thoughts:'Missing original'}),/original_text/i);
     await assert.rejects(()=>bridge.upsertJournal({...first,mood:8}),/submission ID already used/i);
     const changed=await bridge.upsertJournal({date:first.date,submission_id:randomUUID(),original_text:'Synthetic follow-up',followup:'Synthetic follow-up'});
