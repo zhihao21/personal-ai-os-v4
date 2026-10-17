@@ -135,6 +135,31 @@
 .hearth-view:has(.unseen-journal-metrics) .hearth-inner {
   max-width: min(2400px, 100%) !important;
 }
+.hearth-view:has(.unseen-phase-metrics) .hearth-inner {
+  max-width: min(2400px, 100%) !important;
+}
+.hearth-view .unseen-phase-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+.hearth-view .unseen-phase-metric {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 12px 14px;
+  background: rgba(13, 22, 31, .43);
+  border: 1px solid rgba(214, 225, 240, .20);
+  border-top: 2px solid rgba(145, 189, 164, .76);
+  border-radius: 11px;
+  backdrop-filter: blur(5px);
+}
+.hearth-view .unseen-phase-metric:nth-child(2) {border-top-color: rgba(177, 154, 218, .76)}
+.hearth-view .unseen-phase-metric:nth-child(3) {border-top-color: rgba(137, 182, 216, .76)}
+.hearth-view .unseen-phase-metric:nth-child(4) {border-top-color: rgba(225, 184, 121, .76)}
+.hearth-view .unseen-phase-metric strong {font-size: 1.45rem;line-height: 1.1;color: #f3f4f7}
+.hearth-view .unseen-phase-metric span {font-size: .82rem;color: #c8d3df}
 .hearth-view .unseen-journal-metrics {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -167,4 +192,6 @@
   .hearth-view .unseen-overview-item { padding: 9px 12px; }
   .hearth-view .unseen-journal-metrics {grid-template-columns: repeat(2, minmax(0, 1fr))}
   .hearth-view .unseen-journal-metric {padding: 9px 11px}
+  .hearth-view .unseen-phase-metrics {grid-template-columns: repeat(2, minmax(0, 1fr))}
+  .hearth-view .unseen-phase-metric {padding: 9px 11px}
 }
