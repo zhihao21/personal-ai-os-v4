@@ -21,7 +21,7 @@ test('journal, event, finding and access guards use only synthetic records',asyn
   const {home,vault,root}=await setup();
   try{
     const bridge=await createObsidianBridge(vault),submission_id=randomUUID();
-    const first={date:'2040-04-05',submission_id,mood:7,state:6,emotional_tags:['calm'],thoughts:'Synthetic reflection'};
+    const first={date:'2040-04-05',submission_id,original_text:'Mood 7\n\nSynthetic reflection.',mood:7,state:6,emotional_tags:['calm'],thoughts:'Synthetic reflection'};
     const created=await bridge.upsertJournal(first);
     assert.equal(created.created,true);
     const target=path.join(root,'Records','Journal','2040-04-05.md');
@@ -30,8 +30,10 @@ test('journal, event, finding and access guards use only synthetic records',asyn
     const repeated=await bridge.upsertJournal(first);
     assert.equal(repeated.replayed,true);
     assert.equal(await readFile(target,'utf8'),bytes);
+    assert.equal(repeated.original_submissions[0].original_text,first.original_text);
+    await assert.rejects(()=>bridge.upsertJournal({date:first.date,submission_id:randomUUID(),thoughts:'Missing original'}),/original_text/i);
     await assert.rejects(()=>bridge.upsertJournal({...first,mood:8}),/submission ID already used/i);
-    const changed=await bridge.upsertJournal({date:first.date,submission_id:randomUUID(),followup:'Synthetic follow-up'});
+    const changed=await bridge.upsertJournal({date:first.date,submission_id:randomUUID(),original_text:'Synthetic follow-up',followup:'Synthetic follow-up'});
     assert.equal(changed.fields.mood,7);
     assert.equal(changed.fields.thoughts,'Synthetic reflection');
     assert.equal(changed.fields.followup,'Synthetic follow-up');
@@ -72,7 +74,7 @@ test('loopback HTTP requires bearer and rejects browser origin',async()=>{
     const url=`http://127.0.0.1:${port}`;
     const denied=await fetch(url+'/v1/journals');assert.equal(denied.status,401);
     const forbidden=await fetch(url+'/v1/journals',{headers:{Authorization:`Bearer ${token}`,Origin:'https://example.com'}});assert.equal(forbidden.status,403);
-    const written=await fetch(url+'/v1/journals',{method:'POST',headers:{Authorization:`Bearer ${token}`,'Content-Type':'application/json'},body:JSON.stringify({date:'2041-01-02',submission_id:randomUUID(),mood:5,significant_events:'Synthetic API event'})});
+    const written=await fetch(url+'/v1/journals',{method:'POST',headers:{Authorization:`Bearer ${token}`,'Content-Type':'application/json'},body:JSON.stringify({date:'2041-01-02',submission_id:randomUUID(),original_text:'Synthetic API event',mood:5,significant_events:'Synthetic API event'})});
     assert.equal(written.status,200,await written.text());
     const read=await fetch(url+'/v1/journals/2041-01-02',{headers:{Authorization:`Bearer ${token}`}});
     assert.equal((await read.json()).data.fields.significant_events,'Synthetic API event');
@@ -103,7 +105,7 @@ test('stdio MCP exposes scoped tools and persists a synthetic journal',async()=>
     assert.deepEqual(tools.result.tools.map(item=>item.name).sort(),['add_life_event','get_daily_journal','list_recent_journals','upsert_daily_journal','verify_daily_journal'].sort());
     const denied=await call('tools/call',{name:'save_aftereffect_finding',arguments:{date:'2042-02-03',facts:'Synthetic'}});
     assert.equal(denied.result.isError,true);
-    const saved=await call('tools/call',{name:'upsert_daily_journal',arguments:{date:'2042-02-03',submission_id:randomUUID(),mood:8,thoughts:'Synthetic MCP reflection'}});
+    const saved=await call('tools/call',{name:'upsert_daily_journal',arguments:{date:'2042-02-03',submission_id:randomUUID(),original_text:'Synthetic MCP reflection',mood:8,thoughts:'Synthetic MCP reflection'}});
     assert.equal(saved.result.isError,false);
     assert.equal(saved.result.structuredContent.fields.thoughts,'Synthetic MCP reflection');
     const read=await call('tools/call',{name:'get_daily_journal',arguments:{date:'2042-02-03'}});
