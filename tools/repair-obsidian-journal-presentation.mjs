@@ -1,0 +1,21 @@
+import {readFile} from 'node:fs/promises';
+import {join} from 'node:path';
+import {parseFrontmatter,prototypeName} from '../lib/obsidian-prototype.mjs';
+import {readOriginalSubmissions} from '../lib/obsidian-journal-originals.mjs';
+import {saveJournalAnswers,validJournalDate} from '../lib/obsidian-journal-entry.mjs';
+
+const [vault,date]=process.argv.slice(2);
+if(!vault||!validJournalDate(date))throw Error('Pass existing vault and YYYY-MM-DD date');
+const directory=join(vault,prototypeName,'Records','Journal');
+const file=join(directory,`${date}.md`);
+const before=await readFile(file,'utf8');
+const values=parseFrontmatter(before);
+if(values?.record_type!=='journal'||values?.date!==date||!Number.isInteger(values.mood))throw Error('Expected existing scored daily journal');
+const originals=await readOriginalSubmissions(directory,date,before);
+const outcome=await saveJournalAnswers(vault,{date,mood:values.mood});
+const after=await readFile(file,'utf8');
+const verified=await readOriginalSubmissions(directory,date,after);
+if(JSON.stringify(originals)!==JSON.stringify(verified))throw Error('Original submissions changed during presentation repair');
+if(after.includes('<!-- the-unseen-'))throw Error('Internal markers remain in journal body');
+if((after.match(/^> \[!quote\]- /gm)??[]).length!==originals.length)throw Error('Expandable submission count mismatch');
+console.log(JSON.stringify({updated:outcome.updated,original_submissions:verified.length,chart_error:outcome.chart_error}));

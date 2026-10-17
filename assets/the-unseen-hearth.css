@@ -1,0 +1,221 @@
+/* The Unseen: Hearth-only surface styling. The Markdown dashboard keeps its own snippet. */
+.hearth-view {
+  --background-primary: #141c25;
+  --background-secondary: #1a2530;
+  --background-modifier-border: rgba(211, 223, 237, 0.17);
+  --background-modifier-hover: rgba(119, 145, 174, 0.18);
+  --text-normal: #f0f3f6;
+  --text-muted: #b6c1cb;
+  --interactive-accent: #ad9bd2;
+  --text-accent: #c5b5eb;
+  background: #080d13;
+  color: var(--text-normal);
+}
+
+/* The photograph remains the main backdrop; the veil only protects text. */
+.hearth-view .hearth-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg,
+    rgba(5, 9, 15, 0.30),
+    rgba(5, 9, 15, 0.10) 48%,
+    rgba(5, 9, 15, 0.25));
+}
+
+.hearth-view .hearth-title {
+  color: #f6f5f3;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.72);
+}
+.hearth-view .hearth-logo-icon { color: #b6a3da; }
+
+.hearth-view .hearth-card {
+  color: #eef2f5;
+  border-color: var(--unseen-border, rgba(214, 225, 240, 0.20));
+  border-radius: var(--unseen-radius, 14px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.24),
+              inset 0 1px 0 rgba(255, 255, 255, 0.055);
+}
+.hearth-view .hearth-card:hover {
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.31),
+              inset 0 1px 0 rgba(255, 255, 255, 0.07);
+}
+.hearth-view .hearth-card-head {
+  border-bottom-color: rgba(218, 228, 240, 0.12);
+}
+.hearth-view .hearth-card-title {
+  color: #f4f5f7;
+  letter-spacing: 0.01em;
+}
+
+.hearth-view .hearth-card-head { padding: 8px 12px; }
+.hearth-view .hearth-card-body { padding: 9px 12px; }
+.hearth-view .hearth-card-empty { color: #c9d2da; }
+
+/* Three source-backed destinations fill the overview card without large icons. */
+.hearth-view .unseen-overview {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 9px;
+  min-height: 104px;
+}
+.hearth-view .unseen-overview-item {
+  min-width: 0;
+  padding: 12px 14px;
+  border: 1px solid rgba(212, 224, 237, 0.17);
+  border-radius: 10px;
+  background: var(--unseen-panel-soft, rgba(26, 36, 48, 0.52));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+.hearth-view .unseen-overview-work { border-top: 2px solid rgba(177, 154, 218, 0.76); }
+.hearth-view .unseen-overview-study { border-top: 2px solid rgba(137, 182, 216, 0.76); }
+.hearth-view .unseen-overview-life { border-top: 2px solid rgba(145, 189, 164, 0.76); }
+.hearth-view .unseen-overview-link { font-size: 1rem; font-weight: 650; line-height: 1.25; }
+.hearth-view .unseen-overview-link a { color: #f2f4f6; text-decoration: none; }
+.hearth-view .unseen-overview-link a:hover { text-decoration: underline; }
+.hearth-view .unseen-overview-summary { margin-top: 7px; color: #ccd5de; font-size: 0.83rem; line-height: 1.4; }
+.hearth-view .unseen-overview-work .unseen-overview-link a { color: var(--unseen-purple, #c9b5ed); }
+.hearth-view .unseen-overview-study .unseen-overview-link a { color: var(--unseen-blue, #add1ec); }
+.hearth-view .unseen-overview-life .unseen-overview-link a { color: var(--unseen-green, #acd7bb); }
+
+.hearth-view .hearth-search-bar,
+.hearth-view .hearth-newnote {
+  background: rgba(13, 20, 29, 0.71);
+  border-color: rgba(213, 226, 240, 0.24);
+  color: #f0f3f6;
+  backdrop-filter: blur(var(--unseen-blur, 8px));
+  -webkit-backdrop-filter: blur(var(--unseen-blur, 8px));
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+}
+.hearth-view .hearth-search-bar:focus-within {
+  border-color: rgba(183, 164, 225, 0.74);
+  box-shadow: 0 0 0 2px rgba(173, 155, 210, 0.17),
+              0 8px 24px rgba(0, 0, 0, 0.24);
+}
+
+.hearth-view .hearth-link-tile {
+  background: rgba(26, 36, 48, 0.48);
+  border-color: rgba(202, 219, 237, 0.16);
+  color: #ecf0f3;
+}
+.hearth-view .hearth-link-tile:hover {
+  background: rgba(46, 58, 76, 0.67);
+  border-color: rgba(173, 155, 210, 0.58);
+}
+.hearth-view .hearth-link-tile:nth-child(3n + 1) .hearth-link-icon { color: #baa7df; }
+.hearth-view .hearth-link-tile:nth-child(3n + 2) .hearth-link-icon { color: #94b8d7; }
+.hearth-view .hearth-link-tile:nth-child(3n) .hearth-link-icon { color: #99bda9; }
+.hearth-view .hearth-links.is-tile-scaled .hearth-link-icon .svg-icon { max-width: 24px; max-height: 24px; }
+
+/* Dataview and embedded tables should not reintroduce opaque blocks. */
+.hearth-view .hearth-card .table-view-table,
+.hearth-view .hearth-card .table-view-table tbody,
+.hearth-view .hearth-card .table-view-table tr {
+  background: transparent;
+}
+.hearth-view .hearth-card .table-view-table th {
+  background: rgba(14, 21, 30, 0.54);
+  color: #dce6ef;
+}
+.hearth-view .hearth-card .table-view-table td {
+  background: rgba(15, 23, 32, 0.23);
+  color: #edf1f5;
+}
+.hearth-view .hearth-card .table-view-table a { color: #c5b5eb; }
+
+.hearth-view .hearth-dataview table { width: 100%; font-size: 0.81rem; line-height: 1.35; }
+.hearth-view .hearth-dataview th,
+.hearth-view .hearth-dataview td { padding: 5px 7px; border-bottom: 1px solid rgba(215, 229, 241, 0.10); }
+.hearth-view .hearth-dataview th { color: #dfe7ee; background: rgba(8, 15, 23, 0.34); }
+.hearth-view .hearth-dataview td { color: #edf1f5; }
+.hearth-view .hearth-dataview a { color: #cbb9ed; }
+.hearth-view .hearth-dataview p { margin: 3px 0; color: #d2dbe3; line-height: 1.45; }
+
+/* The Life Journal is a native second Hearth dashboard, using the same cards. */
+.hearth-view:has(.unseen-journal-metrics) .hearth-inner {
+  max-width: min(2400px, 100%) !important;
+}
+.hearth-view:has(.unseen-phase-metrics) .hearth-inner {
+  max-width: min(2400px, 100%) !important;
+}
+.hearth-view .unseen-phase-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+.hearth-view .unseen-phase-metric {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 12px 14px;
+  background: rgba(13, 22, 31, .43);
+  border: 1px solid rgba(214, 225, 240, .20);
+  border-top: 2px solid rgba(145, 189, 164, .76);
+  border-radius: 11px;
+  backdrop-filter: blur(5px);
+}
+.hearth-view .unseen-phase-metric:nth-child(2) {border-top-color: rgba(177, 154, 218, .76)}
+.hearth-view .unseen-phase-metric:nth-child(3) {border-top-color: rgba(137, 182, 216, .76)}
+.hearth-view .unseen-phase-metric:nth-child(4) {border-top-color: rgba(225, 184, 121, .76)}
+.hearth-view .unseen-phase-metric strong {font-size: 1.45rem;line-height: 1.1;color: #f3f4f7}
+.hearth-view .unseen-phase-metric span {font-size: .82rem;color: #c8d3df}
+.hearth-view .unseen-timetable-week {display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+.hearth-view .unseen-timetable-day,
+.hearth-view .unseen-timetable-today {min-width:0;padding:10px;border:1px solid rgba(214,225,240,.2);border-radius:11px;background:rgba(13,22,31,.43);backdrop-filter:blur(5px)}
+.hearth-view .unseen-timetable-day h4 {margin:0 0 8px;color:#e4daf2}
+.hearth-view .unseen-timetable-entry {display:flex;flex-direction:column;gap:3px;padding:7px 0;border-top:1px solid rgba(214,225,240,.12)}
+.hearth-view .unseen-timetable-entry strong {color:#f3f4f7;font-size:.88rem}
+.hearth-view .unseen-timetable-entry span,
+.hearth-view .unseen-timetable-entry small {color:#c8d3df;font-size:.77rem}
+.hearth-view .unseen-journal-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+.hearth-view .unseen-journal-metric {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 12px 14px;
+  background: rgba(13, 22, 31, .43);
+  border: 1px solid rgba(214, 225, 240, .20);
+  border-top: 2px solid rgba(177, 154, 218, .76);
+  border-radius: 11px;
+  backdrop-filter: blur(5px);
+}
+.hearth-view .unseen-journal-metric:nth-child(2) {border-top-color: rgba(137, 182, 216, .76)}
+.hearth-view .unseen-journal-metric:nth-child(3) {border-top-color: rgba(145, 189, 164, .76)}
+.hearth-view .unseen-journal-metric:nth-child(4) {border-top-color: rgba(225, 184, 121, .76)}
+.hearth-view .unseen-journal-metric strong {font-size: 1.45rem;line-height: 1.1;color: #f3f4f7}
+.hearth-view .unseen-journal-metric span {font-size: .82rem;color: #c8d3df}
+.hearth-view .unseen-journal-latest {margin-top: 9px;font-size: .82rem}
+
+.hearth-view:has(.unseen-analytics-metrics) .hearth-inner {max-width:min(2400px,100%) !important}
+.hearth-view .unseen-analytics-metrics {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.hearth-view .unseen-analytics-metric {
+  min-width:0;min-height:76px;display:flex;flex-direction:column;justify-content:center;gap:5px;
+  padding:12px 14px;background:rgba(13,22,31,.43);
+  border:1px solid rgba(214,225,240,.20);border-top:2px solid rgba(177,154,218,.76);
+  border-radius:11px;backdrop-filter:blur(5px);
+}
+.hearth-view .unseen-analytics-metric:nth-child(3n+2) {border-top-color:rgba(137,182,216,.76)}
+.hearth-view .unseen-analytics-metric:nth-child(3n) {border-top-color:rgba(145,189,164,.76)}
+.hearth-view .unseen-analytics-metric strong {font-size:1.45rem;line-height:1.1;color:#f3f4f7}
+.hearth-view .unseen-analytics-metric span {font-size:.82rem;color:#c8d3df}
+
+@media (max-width: 700px) {
+  .hearth-view .unseen-timetable-week {grid-template-columns:repeat(2,minmax(0,1fr))}
+  .hearth-view .hearth-card { border-color: rgba(214, 225, 240, 0.25); }
+  .hearth-view .hearth-search-bar,
+  .hearth-view .hearth-newnote { background: rgba(12, 19, 28, 0.79); }
+  .hearth-view .unseen-overview { grid-template-columns: 1fr; }
+  .hearth-view .unseen-overview-item { padding: 9px 12px; }
+  .hearth-view .unseen-journal-metrics {grid-template-columns: repeat(2, minmax(0, 1fr))}
+  .hearth-view .unseen-journal-metric {padding: 9px 11px}
+  .hearth-view .unseen-phase-metrics {grid-template-columns: repeat(2, minmax(0, 1fr))}
+  .hearth-view .unseen-phase-metric {padding: 9px 11px}
+  .hearth-view .unseen-analytics-metrics {grid-template-columns:repeat(2,minmax(0,1fr))}
+  .hearth-view .unseen-analytics-metric {padding:9px 11px}
+}

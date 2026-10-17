@@ -1,0 +1,23 @@
+import {readFile,writeFile} from 'node:fs/promises';
+import {join,dirname} from 'node:path';
+import {fileURLToPath} from 'node:url';
+import {refineHearthDashboard} from '../lib/hearth-refinement.mjs';
+
+const vault=process.argv[2];
+if(!vault)throw Error('Pass the existing Obsidian vault path after backing up .obsidian');
+const configPath=join(vault,'.obsidian','plugins','hearth','data.json');
+const snippetPath=join(vault,'.obsidian','snippets','the-unseen-hearth.css');
+const dataviewPath=join(vault,'.obsidian','plugins','dataview','data.json');
+const source=join(dirname(fileURLToPath(import.meta.url)),'..','assets','the-unseen-hearth.css');
+const config=JSON.parse(await readFile(configPath,'utf8'));
+const original=config.dashboards.find(item=>item.id==='dash-mvawm6fb-2495');
+const ids=original.cards.map(item=>item.id);
+refineHearthDashboard(config);
+if(JSON.stringify(config.dashboards.find(item=>item.id===original.id).cards.map(item=>item.id))!==JSON.stringify(ids))throw Error('Card identity or order changed');
+await writeFile(configPath,JSON.stringify(config,null,2)+'\n');
+await writeFile(snippetPath,await readFile(source));
+const dataview=JSON.parse(await readFile(dataviewPath,'utf8').catch(error=>error.code==='ENOENT'?'{}':Promise.reject(error)));
+dataview.enableDataviewJs=true;
+dataview.enableInlineDataviewJs=false;
+await writeFile(dataviewPath,JSON.stringify(dataview,null,2)+'\n');
+console.log(JSON.stringify({cards:ids.length,overview:'dynamic',dataviewLanguage:'js',cardOpacity:config.cardOpacity,dataviewJs:dataview.enableDataviewJs}));

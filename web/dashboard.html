@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090b10">
+  <title>The Unseen｜Personal AI OS</title>
+  <link rel="stylesheet" href="/dashboard.css">
+  <link rel="stylesheet" href="/startup/animation.css">
+</head>
+<body>
+  <a class="skip" href="#content">跳至內容</a>
+  <div class="shell">
+    <aside class="sidebar" aria-label="主導覽">
+      <div class="brand"><span class="brand-mark">U</span><div><strong>The Unseen</strong><small>PERSONAL AI OS · V4.0</small></div></div>
+      <p class="nav-label">核心模組</p>
+      <nav>
+        <a class="nav-item active" href="#overview"><span>⌂</span> 每日控制台</a>
+        <a class="nav-item" href="#week"><span>▦</span> 本週行程</a>
+        <a class="nav-item" href="#life"><span>◈</span> 生活日誌</a>
+        <a class="nav-item" href="#risk"><span>◇</span> 生活風險</a>
+        <a class="nav-item" href="#work"><span>▣</span> 任務與專案</a>
+      </nav>
+      <p class="nav-label second-label">資料連線</p>
+      <a class="nav-item" id="notion-link" href="#" aria-disabled="true"><span>↗</span> 開啟 Notion</a>
+      <div class="sidebar-bottom"><span class="signal"></span><span id="connection-small">正在檢查資料來源</span></div>
+    </aside>
+    <main id="content">
+      <header class="topbar"><div class="crumb">THE UNSEEN <span>/</span> 每日控制台</div><div class="top-actions"><span id="today"></span><button id="refresh" type="button" title="重新載入資料">↻ 更新</button></div></header>
+      <div class="content-inner" id="overview">
+        <section class="hero"><div><p class="eyebrow"><span class="eyebrow-line"></span> LIFE INTELLIGENCE SYSTEM</p><h1>The <em>Unseen</em></h1><p class="subtitle">Understand Yourself. Design Your Future.</p><p class="hero-chinese">看見日常的軌跡，理解正在發生的事。</p></div><div class="hero-date"><span>今天</span><strong id="hero-date"></strong><small id="hero-day"></small></div></section>
+        <div id="source-banner" class="source-banner" role="status" aria-live="polite"></div>
+        <section class="overview-grid" aria-label="三大面向概覽">
+          <article class="overview-card work-card"><div class="card-top"><span class="card-icon">▣</span><span class="card-arrow">↗</span></div><div><span class="card-kicker">WORK DIMENSION</span><h2>工作 <span>Work</span></h2><p id="work-summary">尚無資料</p></div><div class="card-track"><span></span></div></article>
+          <article class="overview-card study-card"><div class="card-top"><span class="card-icon">◇</span><span class="card-arrow">↗</span></div><div><span class="card-kicker">STUDY DIMENSION</span><h2>學習 <span>Study</span></h2><p>保留既有課業中心；新資料等待上傳</p></div><div class="card-track"><span></span></div></article>
+          <article class="overview-card life-card"><div class="card-top"><span class="card-icon">✺</span><span class="card-arrow">↗</span></div><div><span class="card-kicker">LIFE DIMENSION</span><h2>生活 <span>Life</span></h2><p id="life-summary">尚無資料</p></div><div class="card-track"><span></span></div></article>
+          <article class="focus-card"><div class="section-heading"><div><p class="eyebrow">TODAY'S FOCUS</p><h2>今日重點</h2></div><span class="outline-icon">✦</span></div><ul id="focus-list" class="focus-list"></ul></article>
+        </section>
+        <section class="panel timetable" id="week"><div class="section-heading"><div><p class="eyebrow">YOUR WEEK AT A GLANCE</p><h2>本週行程 <span class="muted">Weekly timetable</span></h2></div><div class="week-controls"><button id="prev-week" type="button" aria-label="上一週">‹</button><span id="week-label"></span><button id="next-week" type="button" aria-label="下一週">›</button><button id="this-week" type="button">本週</button></div></div><div id="week-grid" class="week-grid"></div></section>
+        <section class="lower-grid" id="work"><article class="panel list-panel"><div class="section-heading"><div><p class="eyebrow purple">GET THINGS DONE</p><h2>任務 <span class="muted">Task</span></h2></div><span class="panel-symbol">☑</span></div><div id="task-list" class="item-list"></div></article><article class="panel list-panel"><div class="section-heading"><div><p class="eyebrow orange">IN PROGRESS</p><h2>專案 <span class="muted">Project</span></h2></div><span class="panel-symbol">▱</span></div><div id="project-list" class="item-list"></div></article><article class="panel list-panel"><div class="section-heading"><div><p class="eyebrow blue">KNOWLEDGE BASE</p><h2>資源 <span class="muted">Resource</span></h2></div><span class="panel-symbol">◇</span></div><div id="resource-list" class="item-list"></div></article></section>
+        <section class="insight-grid"><article class="panel life-panel" id="life"><div class="section-heading"><div><p class="eyebrow green">DAILY CHECK-IN</p><h2>生活日誌</h2></div><a id="journal-link" class="inline-link hidden" href="#" target="_blank" rel="noopener noreferrer">開啟 Notion ↗</a></div><div id="journal-summary" class="journal-summary"></div></article><article class="panel risk-panel" id="risk"><div class="section-heading"><div><p class="eyebrow purple">LIFE RISK ANALYSIS</p><h2>風險觀察</h2></div><a id="risk-link" class="inline-link hidden" href="#" target="_blank" rel="noopener noreferrer">完整視圖 ↗</a></div><div class="risk-metrics"><div><span>目前追蹤</span><strong id="active-count">—</strong></div><div><span>歷史高風險</span><strong id="historical-count">—</strong></div><div><span>延後觀察</span><strong id="followup-count">—</strong></div></div><div id="risk-list" class="risk-list"></div><p class="provisional">暫定、非臨床評分。歷史事件不等於目前危機；沒有觀察時不推論趨勢。</p></article></section>
+        <footer>PERSONAL AI OS V4.0 <span>·</span> Capture → Organize → Analyze → Review <span>·</span> 大學 Notion 為主要資料來源</footer>
+      </div>
+    </main>
+  </div>
+  <script type="module" src="/dashboard.mjs"></script>
+  <script type="module" src="/startup/start.mjs"></script>
+</body>
+</html>
