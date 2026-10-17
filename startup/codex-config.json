@@ -1,1 +1,4 @@
-{"brand":"OPENAI CODEX","title":"Codex","subtitle":"YOUR WORKSPACE IS READY","accent":"#66d4ce","speed":1,"audio":false,"allowSkip":true,"steps":["Initializing workspace","Connecting your tools","Preparing Codex","Ready"]}
+{
+  "durationSeconds": 23.2,
+  "audio": true
+}
