@@ -1,7 +1,7 @@
 /* Shared visual tokens; only Hearth and The Unseen module views receive them. */
 .hearth-view,
-.the-unseen-module.markdown-preview-view,
-.the-unseen-module.markdown-source-view {
+:is(.the-unseen-module,.the-unseen-journal-detail).markdown-preview-view,
+:is(.the-unseen-module,.the-unseen-journal-detail).markdown-source-view {
   --unseen-background-image: none;
   --unseen-panel-opacity: 0.52;
   --unseen-panel: rgb(13 22 31 / var(--unseen-panel-opacity));
@@ -15,11 +15,25 @@
   --unseen-green: #acd7bb;
 }
 
+/* Obsidian paints an opaque view-content layer behind reading-mode notes.
+   Put the Hearth image there and keep the journal surface transparent. */
+.workspace-leaf:has(.the-unseen-journal-detail) .view-content {
+  background-color: #080d13;
+  background-image: linear-gradient(90deg, rgba(5, 9, 15, 0.58), rgba(5, 9, 15, 0.39) 52%, rgba(5, 9, 15, 0.49)), url("__HEARTH_BACKGROUND_DATA_URI__");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.workspace-leaf:has(.the-unseen-journal-detail) .markdown-reading-view,
+.workspace-leaf:has(.the-unseen-journal-detail) .the-unseen-journal-detail.markdown-preview-view,
+.workspace-leaf:has(.the-unseen-journal-detail) .the-unseen-journal-detail.markdown-source-view {
+  background: transparent;
+}
+
 /* Obsidian's content width and text flow remain controlled by Obsidian. */
-.the-unseen-module.markdown-preview-view,
-.the-unseen-module.markdown-source-view {
-  /* Replaced at installation with the exact existing Hearth PNG as a data URI. */
-  --unseen-background-image: url("__HEARTH_BACKGROUND_DATA_URI__");
+:is(.the-unseen-module,.the-unseen-journal-detail).markdown-preview-view,
+:is(.the-unseen-module,.the-unseen-journal-detail).markdown-source-view {
+  /* Reading and editing surfaces inherit the image painted on view-content. */
   --unseen-background-overlay: linear-gradient(90deg, rgba(5, 9, 15, 0.58), rgba(5, 9, 15, 0.39) 52%, rgba(5, 9, 15, 0.49));
   --background-primary: #101820;
   --background-secondary: #1a222d;
@@ -38,18 +52,22 @@
   background-repeat: no-repeat;
   color: #edf0f5;
 }
-.the-unseen-module .inline-title {display:none}
-.the-unseen-module h1 {font-family:Georgia,'Noto Serif TC',serif;font-size:clamp(1.9rem,3vw,2.6rem);line-height:1.18;margin:.25rem 0 .55rem;letter-spacing:-.015em;text-shadow:0 2px 20px rgba(0,0,0,.72)}
-.the-unseen-module h1 + p {font-size:.98rem;color:#d4dce5;margin:0 0 .9rem;text-shadow:0 1px 8px rgba(0,0,0,.75)}
-.the-unseen-module h2 {font-size:1.13rem;margin:1.7rem 0 .7rem;padding:0 0 .45rem;border-bottom:1px solid #414958}
-.the-unseen-module h2:nth-of-type(3n + 1) {color:var(--unseen-purple)}
-.the-unseen-module h2:nth-of-type(3n + 2) {color:var(--unseen-blue)}
-.the-unseen-module h2:nth-of-type(3n) {color:var(--unseen-green)}
-.the-unseen-module a {text-decoration:none}
-.the-unseen-module a:hover {text-decoration:underline}
-.the-unseen-module .callout,
-.the-unseen-module .block-language-dataviewjs,
-.the-unseen-module .internal-embed {
+:is(.the-unseen-module,.the-unseen-journal-detail) .inline-title {display:none}
+.the-unseen-journal-detail.markdown-preview-view {--file-line-width: min(1100px, calc(100vw - 44px))}
+.the-unseen-journal-detail .callout[data-callout="abstract"] {--callout-color:177,154,218}
+.the-unseen-journal-detail .callout[data-callout="summary"] {--callout-color:137,182,216}
+.the-unseen-journal-detail .callout[data-callout="info"] {--callout-color:145,189,164}
+:is(.the-unseen-module,.the-unseen-journal-detail) h1 {font-family:Georgia,'Noto Serif TC',serif;font-size:clamp(1.9rem,3vw,2.6rem);line-height:1.18;margin:.25rem 0 .55rem;letter-spacing:-.015em;text-shadow:0 2px 20px rgba(0,0,0,.72)}
+:is(.the-unseen-module,.the-unseen-journal-detail) h1 + p {font-size:.98rem;color:#d4dce5;margin:0 0 .9rem;text-shadow:0 1px 8px rgba(0,0,0,.75)}
+:is(.the-unseen-module,.the-unseen-journal-detail) h2 {font-size:1.13rem;margin:1.7rem 0 .7rem;padding:0 0 .45rem;border-bottom:1px solid #414958}
+:is(.the-unseen-module,.the-unseen-journal-detail) h2:nth-of-type(3n + 1) {color:var(--unseen-purple)}
+:is(.the-unseen-module,.the-unseen-journal-detail) h2:nth-of-type(3n + 2) {color:var(--unseen-blue)}
+:is(.the-unseen-module,.the-unseen-journal-detail) h2:nth-of-type(3n) {color:var(--unseen-green)}
+:is(.the-unseen-module,.the-unseen-journal-detail) a {text-decoration:none}
+:is(.the-unseen-module,.the-unseen-journal-detail) a:hover {text-decoration:underline}
+:is(.the-unseen-module,.the-unseen-journal-detail) .callout,
+:is(.the-unseen-module,.the-unseen-journal-detail) .block-language-dataviewjs,
+:is(.the-unseen-module,.the-unseen-journal-detail) .internal-embed {
   background:var(--unseen-panel);
   border:1px solid var(--unseen-border);
   border-radius:var(--unseen-radius);
@@ -58,13 +76,13 @@
   box-shadow:0 12px 30px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.055);
   padding:12px 16px;
 }
-.the-unseen-module .callout {--callout-color:168,152,231}
-.the-unseen-module .callout[data-callout="warning"] {--callout-color:171,201,239}
-.the-unseen-module .callout[data-callout="note"] {--callout-color:155,201,172}
-.the-unseen-module .block-language-dataviewjs {overflow-x:auto}
-.the-unseen-module .internal-embed:not(.image-embed) {overflow-x:auto}
-.the-unseen-module .bases-embed,
-.the-unseen-module .block-language-base {
+:is(.the-unseen-module,.the-unseen-journal-detail) .callout {--callout-color:168,152,231}
+:is(.the-unseen-module,.the-unseen-journal-detail) .callout[data-callout="warning"] {--callout-color:171,201,239}
+:is(.the-unseen-module,.the-unseen-journal-detail) .callout[data-callout="note"] {--callout-color:155,201,172}
+:is(.the-unseen-module,.the-unseen-journal-detail) .block-language-dataviewjs {overflow-x:auto}
+:is(.the-unseen-module,.the-unseen-journal-detail) .internal-embed:not(.image-embed) {overflow-x:auto}
+:is(.the-unseen-module,.the-unseen-journal-detail) .bases-embed,
+:is(.the-unseen-module,.the-unseen-journal-detail) .block-language-base {
   --bases-table-header-background:var(--unseen-panel-strong);
   --bases-table-summary-background:var(--unseen-panel-strong);
   --bases-table-group-background:var(--unseen-panel-soft);
@@ -73,28 +91,28 @@
   --bases-kanban-container-background:transparent;
   --bases-kanban-card-background:var(--unseen-panel);
 }
-.the-unseen-module .unseen-metrics {display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,10rem),1fr));gap:10px;min-width:0}
-.the-unseen-module .unseen-metric {display:flex;flex-direction:column;gap:3px;padding:10px 12px;background:var(--unseen-panel-soft);border:1px solid var(--unseen-border);border-radius:10px;min-width:0}
-.the-unseen-module .unseen-metric:nth-child(3n + 1) {border-top:2px solid #a898e7}
-.the-unseen-module .unseen-metric:nth-child(3n + 2) {border-top:2px solid #87abe3}
-.the-unseen-module .unseen-metric:nth-child(3n) {border-top:2px solid #89bca0}
-.the-unseen-module .unseen-metric strong {font-size:1.4rem;color:#f3f3f8;line-height:1.15}
-.the-unseen-module .unseen-metric span {font-size:.83rem;color:#b9c6d6}
-.the-unseen-module table {width:100%;font-size:.9rem}
-.the-unseen-module th {color:#e1e5ef;background:var(--unseen-panel-strong)}
-.the-unseen-module td {color:#edf1f5;background:rgba(15,23,32,.36)}
-.the-unseen-module td,.the-unseen-module th {border-color:var(--unseen-border);padding:8px 10px}
-.the-unseen-module .table-view-table,
-.the-unseen-module .table-view-table tbody,
-.the-unseen-module .table-view-table tr {background:transparent}
-.the-unseen-module .image-embed {display:block;box-sizing:border-box;max-width:100%;overflow:hidden}
-.the-unseen-module .image-embed img {max-width:100%;height:auto;border-radius:10px}
+:is(.the-unseen-module,.the-unseen-journal-detail) .unseen-metrics {display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,10rem),1fr));gap:10px;min-width:0}
+:is(.the-unseen-module,.the-unseen-journal-detail) .unseen-metric {display:flex;flex-direction:column;gap:3px;padding:10px 12px;background:var(--unseen-panel-soft);border:1px solid var(--unseen-border);border-radius:10px;min-width:0}
+:is(.the-unseen-module,.the-unseen-journal-detail) .unseen-metric:nth-child(3n + 1) {border-top:2px solid #a898e7}
+:is(.the-unseen-module,.the-unseen-journal-detail) .unseen-metric:nth-child(3n + 2) {border-top:2px solid #87abe3}
+:is(.the-unseen-module,.the-unseen-journal-detail) .unseen-metric:nth-child(3n) {border-top:2px solid #89bca0}
+:is(.the-unseen-module,.the-unseen-journal-detail) .unseen-metric strong {font-size:1.4rem;color:#f3f3f8;line-height:1.15}
+:is(.the-unseen-module,.the-unseen-journal-detail) .unseen-metric span {font-size:.83rem;color:#b9c6d6}
+:is(.the-unseen-module,.the-unseen-journal-detail) table {width:100%;font-size:.9rem}
+:is(.the-unseen-module,.the-unseen-journal-detail) th {color:#e1e5ef;background:var(--unseen-panel-strong)}
+:is(.the-unseen-module,.the-unseen-journal-detail) td {color:#edf1f5;background:rgba(15,23,32,.36)}
+:is(.the-unseen-module,.the-unseen-journal-detail) td,:is(.the-unseen-module,.the-unseen-journal-detail) th {border-color:var(--unseen-border);padding:8px 10px}
+:is(.the-unseen-module,.the-unseen-journal-detail) .table-view-table,
+:is(.the-unseen-module,.the-unseen-journal-detail) .table-view-table tbody,
+:is(.the-unseen-module,.the-unseen-journal-detail) .table-view-table tr {background:transparent}
+:is(.the-unseen-module,.the-unseen-journal-detail) .image-embed {display:block;box-sizing:border-box;max-width:100%;overflow:hidden}
+:is(.the-unseen-module,.the-unseen-journal-detail) .image-embed img {max-width:100%;height:auto;border-radius:10px}
 @media (max-width:700px) {
-  .the-unseen-module.markdown-preview-view,
-  .the-unseen-module.markdown-source-view {background-position:center,58% center}
-  .the-unseen-module .callout,
-  .the-unseen-module .block-language-dataviewjs,
-  .the-unseen-module .internal-embed {background:var(--unseen-panel-strong)}
-  .the-unseen-module .block-language-dataviewjs {padding:9px 10px}
-  .the-unseen-module table {font-size:.82rem}
+  :is(.the-unseen-module,.the-unseen-journal-detail).markdown-preview-view,
+  :is(.the-unseen-module,.the-unseen-journal-detail).markdown-source-view {background-position:center,58% center}
+  :is(.the-unseen-module,.the-unseen-journal-detail) .callout,
+  :is(.the-unseen-module,.the-unseen-journal-detail) .block-language-dataviewjs,
+  :is(.the-unseen-module,.the-unseen-journal-detail) .internal-embed {background:var(--unseen-panel-strong)}
+  :is(.the-unseen-module,.the-unseen-journal-detail) .block-language-dataviewjs {padding:9px 10px}
+  :is(.the-unseen-module,.the-unseen-journal-detail) table {font-size:.82rem}
 }
