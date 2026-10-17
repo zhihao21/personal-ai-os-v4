@@ -56,7 +56,7 @@ const schedule = table({folder:'Schedule',headers:['安排','日期'],filter:'St
 const risks = table({folder:'Risks',headers:['事件','方向','分級'],filter:'p.lifecycle === "current"',sort:'String(b.occurred_at ?? "").localeCompare(String(a.occurred_at ?? ""))',cells:'[p.file.link,p.direction ?? "—",p.severity ?? "—"]',empty:'目前沒有追蹤中的風險紀錄。'});
 const academic = table({folder:'Academic',headers:['學習紀錄'],sort:'String(b.file.name).localeCompare(String(a.file.name))',cells:'[p.file.link]',empty:'尚無學習紀錄。',limit:8});
 const projects = table({folder:'Projects',headers:['專案'],sort:'String(b.file.name).localeCompare(String(a.file.name))',cells:'[p.file.link]',empty:'尚無專案紀錄。'});
-const shared = '[[The Unseen|首頁]] · [[生活管理|生活管理]] · [[生活日誌|日誌]] · [[任務與行程|任務與行程]]';
+const shared = '[[The Unseen|首頁]] · [[每日總覽|總覽]] · [[生活日誌|日誌]] · [[生活風險|風險]] · [[任務與行程|任務]] · [[視覺分析|趨勢]] · [[生命關聯圖|關聯]]';
 const pages = {
   '每日總覽.md':note('每日總覽','工作、學習與生活的當前狀態。',`${shared} · [填寫今日日誌](obsidian://daily?vault=${encodeURIComponent(vault.split(/[\\/]/).filter(Boolean).at(-1))})`,`
 ## 即時概況
