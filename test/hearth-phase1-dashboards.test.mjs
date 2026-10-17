@@ -22,6 +22,7 @@ test('adds Phase 1 boards while retaining home and approved journal',()=>{
   assert.equal(result.dashboards[0].cards.find(c=>c.id==='unseen-modules').links[0].target,'hearth:open-dashboard-3');
   assert.match(result.dashboards[2].cards.find(c=>c.id==='overview-status').dataview.query,/歷史，非今日/);
   assert.match(result.dashboards[3].cards.find(c=>c.id==='risk-historical').dataview.query,/historical_score/);
-  assert.match(result.dashboards[4].cards.find(c=>c.id==='tasks-classes').dataview.query,/學習/);
+  assert.match(result.dashboards[4].cards.find(c=>c.id==='tasks-classes').dataview.query,/unseen-timetable-week/);
+  assert.match(result.dashboards[2].cards.find(c=>c.id==='overview-classes').dataview.query,/Asia\/Taipei/);
   assert.equal(buildHearthPhase1Dashboards(result).dashboards.length,5);
 });

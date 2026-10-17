@@ -160,6 +160,14 @@
 .hearth-view .unseen-phase-metric:nth-child(4) {border-top-color: rgba(225, 184, 121, .76)}
 .hearth-view .unseen-phase-metric strong {font-size: 1.45rem;line-height: 1.1;color: #f3f4f7}
 .hearth-view .unseen-phase-metric span {font-size: .82rem;color: #c8d3df}
+.hearth-view .unseen-timetable-week {display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+.hearth-view .unseen-timetable-day,
+.hearth-view .unseen-timetable-today {min-width:0;padding:10px;border:1px solid rgba(214,225,240,.2);border-radius:11px;background:rgba(13,22,31,.43);backdrop-filter:blur(5px)}
+.hearth-view .unseen-timetable-day h4 {margin:0 0 8px;color:#e4daf2}
+.hearth-view .unseen-timetable-entry {display:flex;flex-direction:column;gap:3px;padding:7px 0;border-top:1px solid rgba(214,225,240,.12)}
+.hearth-view .unseen-timetable-entry strong {color:#f3f4f7;font-size:.88rem}
+.hearth-view .unseen-timetable-entry span,
+.hearth-view .unseen-timetable-entry small {color:#c8d3df;font-size:.77rem}
 .hearth-view .unseen-journal-metrics {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -185,6 +193,7 @@
 .hearth-view .unseen-journal-latest {margin-top: 9px;font-size: .82rem}
 
 @media (max-width: 700px) {
+  .hearth-view .unseen-timetable-week {grid-template-columns:repeat(2,minmax(0,1fr))}
   .hearth-view .hearth-card { border-color: rgba(214, 225, 240, 0.25); }
   .hearth-view .hearth-search-bar,
   .hearth-view .hearth-newnote { background: rgba(12, 19, 28, 0.79); }
